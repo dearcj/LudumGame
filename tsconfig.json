@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "target": "es5",
+    "allowJs": true
+  },
+    "exclude": [
+      "./levels/",
+      "levels/",
+      //      "./node_modules",
+      "../../../../../pkg"
+  ],
+  "baseUrl": "./node_modules/",
+  "paths": {
+  }
+
+}

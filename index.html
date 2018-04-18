@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html id="page" >
+<head>
+    <meta charset="UTF-8">
+    <script src="lib/pixi.js"></script>
+    <script src="lib/pixi-spine.js"></script>
+    <script src="node_modules/pixi-heaven/dist/pixi-heaven.js"></script>
+    <script src="lib/TweenMax.min.js"></script>
+    <script src="lib/CustomEase.js"></script>
+    <script src="lib/CubicBezier.js"></script>
+    <script src="lib/howler.min.js"></script>
+    <script src="lib/gstats.js"></script>
+    <script src="lib/stats.min.js"></script>
+    <script src="lib/pixi-ui.js"></script>
+    <script src="./protoTypeScript/compiled.js"></script>
+
+    <script src="lib/matter.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+
+    <script data-main="./main.js" src="lib/require.js"></script>
+    <script>
+
+    window.startTime = new Date();
+
+        function doubleRescale() {
+            setTimeout(rescale, 600);
+            rescale();
+        }
+
+        function rescale() {
+     /*
+
+
+     SCR_SCALE = Math.min(window.innerWidth / SCR_WIDTH, window.innerHeight / SCR_HEIGHT)
+            renderer.resize(SCR_WIDTH * SCR_SCALE, SCR_HEIGHT * SCR_SCALE);
+
+            if (SM.instance.superstage) {
+                SM.instance.superstage.scale.x = SCR_SCALE;
+                SM.instance.superstage.scale.y = SCR_SCALE;
+            }
+
+            var ox = window.innerWidth / 2 - SCR_WIDTH * SCR_SCALE / 2;
+            var oy = window.innerHeight / 2 - SCR_HEIGHT * SCR_SCALE / 2;
+            renderer.view.setAttribute("style", "position:absolute;left:" + ox.toString() + "px;top:" + oy.toString() + "px");
+
+            if (window.icorotate) {
+                window.icorotate.width = 325 * SCR_SCALE;
+                window.icorotate.height = 325 * SCR_SCALE;
+                var lf = Math.round((window.innerWidth / 2));
+                var tp = Math.round((window.innerHeight / 2)) - window.icorotate.height / 2;
+
+                window.icorotate.setAttribute("style", "position:absolute;left:" + lf.toString() + "px;top:" + tp.toString() + "px;margin-left:" + (-window.icorotate.width / 2).toString() + "px;");
+            }*/
+        }
+
+        function onWindowResize() {
+            doubleRescale();
+            window.scrollTo(0,1);
+        }
+
+    </script>
+</head>
+<body style="border: none; margin: 0px ">
+</body>
+</html>

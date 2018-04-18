@@ -1,0 +1,26 @@
+{
+  "name": "electron-desktop-build",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fmath": "^1.0.1",
+    "pixi-heaven": "^0.1.11",
+    "protobufjs": "^6.8.3"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.0",
+    "@types/pixi-spine": "^1.4.2",
+    "@types/pixi.js": "^4.7.0",
+    "@types/webgl-ext": "0.0.29",
+    "electron": "^1.8.4"
+  }
+}
