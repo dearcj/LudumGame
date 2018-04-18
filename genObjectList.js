@@ -1,6 +1,5 @@
 const objFolder = './Objects/';
 const baseObjFolder = './Neu/BaseObjects/';
-
 const levelsFolder = './Levels/';
 
 const fs = require('fs');
