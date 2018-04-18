@@ -3,7 +3,6 @@ import {BackgroundFar} from "./Objects/BackgroundFar";
 import {Candle} from "./Objects/Candle";
 import {ChainCreator} from "./Objects/ChainCreator";
 import {ChestParticles} from "./Objects/ChestParticles";
-import {ClientSettings} from "./ClientSettings";
 import {DarkParticleSystem} from "./Objects/DarkParticleSystem";
 import {FogParticleSystem} from "./Objects/FogParticleSystem";
 import {Aligner} from "./Neu/BaseObjects/Aligner";
@@ -27,7 +26,6 @@ export let ObjectNames = {
   Candle :Candle,
   ChainCreator :ChainCreator,
   ChestParticles :ChestParticles,
-  ClientSettings :ClientSettings,
   DarkParticleSystem :DarkParticleSystem,
   FogParticleSystem :FogParticleSystem,
   Aligner :Aligner,

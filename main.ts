@@ -22,7 +22,9 @@ import {
 } from "./ClientSettings";
 import {Loader} from "./Neu/Loader";
 import "./node_modules/fmath/src/FMath.js"
-import {ColorGradingShader} from "./res/shaders/ColorGradingShader";
+import {ColorGradingShader} from "./shaders/ColorGradingShader";
+import {Menu} from "./Stages/Menu";
+import {Game} from "./Stages/Game";
 export let FMath = (<any>window).FMath;
 declare let Stats: any;
 export type PIXIContainer = any;
@@ -121,11 +123,11 @@ export class Main extends Application {
     start() {
         let baseW, baseH: number;
         if (window.location.search == '?webres') {
-            baseW = MIN_SCR_WIDTH;//config.Client.ScreenWidth;
-            baseH = MIN_SCR_HEIGHT;//config.Client.ScreenHeight;
+            baseW = MIN_SCR_WIDTH;//this.SCR_WIDTH;
+            baseH = MIN_SCR_HEIGHT;//this.SCR_HEIGHT;
         } else {
-            baseW = MAX_SCR_WIDTH;//config.Client.ScreenWidth;
-            baseH = MAX_SCR_HEIGHT;//config.Client.ScreenHeight;
+            baseW = MAX_SCR_WIDTH;//this.SCR_WIDTH;
+            baseH = MAX_SCR_HEIGHT;//this.SCR_HEIGHT;
         }
 
         TweenMax.lagSmoothing(0);
@@ -167,12 +169,12 @@ export class Main extends Application {
 
             if (globalProperties["battlelight"]) {
                 let col = globalProperties["battlelight"].replace('#', '0x');
-                this.game.colBattle = m.numhexToRgb(parseInt(col))
+                //this.game.colBattle = m.numhexToRgb(parseInt(col))
             }
 
             if (globalProperties["regularlight"]) {
                 let col = globalProperties["regularlight"].replace('#', '0x');
-                this.game.colRegular = m.numhexToRgb(parseInt(col))
+                //this.game.colRegular = m.numhexToRgb(parseInt(col))
             }
         };
     };
@@ -187,35 +189,16 @@ export class Main extends Application {
         document.addEventListener('mousedown', (e) => {
             if (this.globalMouseDown) this.globalMouseDown(e)
         });
+        
         interaction.cursorStyles["init"] = "url(./cursors/cursor.png), default";
         interaction.cursorStyles["default"] = "url(./cursors/cursor.png), default";
         interaction.cursorStyles["pointer"] = "url(./cursors/hand.png), pointer";
         interaction.cursorStyles["skill"] = "url(./cursors/cursor_skill.png), pointer";
         interaction.currentCursorMode = "init";
+        
         this.app.stage.interactive = true;
         this.app.stage.cursor = "init";
-
-        if (SKIP_MENU) {
-            _.menu.noReconnect = true;
-            _.menu.skip = true;
-
-            _.sm.openStage(_.menu);
-
-            setTimeout(() => {
-                network.sendPlayerCommand(config.Commands.CMD_SELECT_CHAR, [config.Characters.Types.CHAR_ENCHANTED]);
-                setTimeout(() => {
-                    network.sendPlayerCommand(config.Commands.CMD_CLOSE_SHOP);
-
-
-                }, 500);
-
-            }, 500);
-
-        } else {
-            if (DEBUG_EFFECTS)
-                _.sm.openStage(_.debugEffects); else
-                this.sm.openStage(this.menu);
-        }
+        
     }
 
     initPreloader() {
@@ -224,20 +207,21 @@ export class Main extends Application {
 
         const borderWidth = 3;
         this.preloadBar.beginFill(0x000000);
-        this.preloadBar.moveTo(_.screenCenterOffset[0] + config.Client.ScreenWidth * 0.1 - borderWidth, _.screenCenterOffset[1] + config.Client.ScreenHeight * 0.495 - borderWidth);
-        this.preloadBar.lineTo(_.screenCenterOffset[0] + config.Client.ScreenWidth * 0.9 + borderWidth, _.screenCenterOffset[1] + config.Client.ScreenHeight * 0.495 - borderWidth);
-        this.preloadBar.lineTo(_.screenCenterOffset[0] + config.Client.ScreenWidth * 0.9 + borderWidth, _.screenCenterOffset[1] + config.Client.ScreenHeight * 0.505 + borderWidth);
-        this.preloadBar.lineTo(_.screenCenterOffset[0] + config.Client.ScreenWidth * 0.1 - borderWidth, _.screenCenterOffset[1] + config.Client.ScreenHeight * 0.505 + borderWidth);
+        
+        this.preloadBar.moveTo(_.screenCenterOffset[0] + this.SCR_WIDTH * 0.1 - borderWidth, _.screenCenterOffset[1] + this.SCR_HEIGHT * 0.495 - borderWidth);
+        this.preloadBar.lineTo(_.screenCenterOffset[0] + this.SCR_WIDTH * 0.9 + borderWidth, _.screenCenterOffset[1] + this.SCR_HEIGHT * 0.495 - borderWidth);
+        this.preloadBar.lineTo(_.screenCenterOffset[0] + this.SCR_WIDTH * 0.9 + borderWidth, _.screenCenterOffset[1] + this.SCR_HEIGHT * 0.505 + borderWidth);
+        this.preloadBar.lineTo(_.screenCenterOffset[0] + this.SCR_WIDTH * 0.1 - borderWidth, _.screenCenterOffset[1] + this.SCR_HEIGHT * 0.505 + borderWidth);
         this.preloadBar.endFill();
     }
 
     drawPreloaderProgress(progressPercent: number): void {
         this.preloadBar.beginFill(0xffffff);
         const progress = progressPercent / 100;
-        this.preloadBar.moveTo(_.screenCenterOffset[0] + config.Client.ScreenWidth * 0.1, _.screenCenterOffset[1] + config.Client.ScreenHeight * 0.495);
-        this.preloadBar.lineTo(_.screenCenterOffset[0] + config.Client.ScreenWidth * 0.1 + config.Client.ScreenWidth * 0.8 * progress, _.screenCenterOffset[1] + config.Client.ScreenHeight * 0.495);
-        this.preloadBar.lineTo(_.screenCenterOffset[0] + config.Client.ScreenWidth * 0.1 + config.Client.ScreenWidth * 0.8 * progress, _.screenCenterOffset[1] + config.Client.ScreenHeight * 0.505);
-        this.preloadBar.lineTo(_.screenCenterOffset[0] + config.Client.ScreenWidth * 0.1, _.screenCenterOffset[1] + config.Client.ScreenHeight * 0.505);
+        this.preloadBar.moveTo(_.screenCenterOffset[0] + this.SCR_WIDTH * 0.1, _.screenCenterOffset[1] + this.SCR_HEIGHT * 0.495);
+        this.preloadBar.lineTo(_.screenCenterOffset[0] + this.SCR_WIDTH * 0.1 + this.SCR_WIDTH * 0.8 * progress, _.screenCenterOffset[1] + this.SCR_HEIGHT * 0.495);
+        this.preloadBar.lineTo(_.screenCenterOffset[0] + this.SCR_WIDTH * 0.1 + this.SCR_WIDTH * 0.8 * progress, _.screenCenterOffset[1] + this.SCR_HEIGHT * 0.505);
+        this.preloadBar.lineTo(_.screenCenterOffset[0] + this.SCR_WIDTH * 0.1, _.screenCenterOffset[1] + this.SCR_HEIGHT * 0.505);
         this.preloadBar.endFill();
     }
 
@@ -253,13 +237,6 @@ export class Main extends Application {
         Runner.run(runner, this.engine);
         let onAssetsLoaded = () => {
             this.drawPreloaderProgress(100);
-            this.rm.requestSpine('horse', () => {
-            });
-            this.rm.requestSpine('Girl', () => {
-            });
-            this.rm.requestSpine('Prince', () => {
-            });
-
             this.loadingCounter++;
             if (this.loadingCounter == 2) this.loadComplete()
         };
@@ -267,9 +244,7 @@ export class Main extends Application {
         this.rm = new ResourceManager();
         this.rm.loadAssets(GLOBAL_ASSETS.concat(LevelNames), (loader: any, evt: any) => {
             this.drawPreloaderProgress(loader.progress);
-
             this.assetsLoaded++;
-
         }, onAssetsLoaded);
 
         this.sound = new Sound();
@@ -292,5 +267,3 @@ export var _: Main = new Main(MIN_SCR_WIDTH, MIN_SCR_HEIGHT);
 
 _.start();
 _.load();
-
-

@@ -1,5 +1,3 @@
-import {config} from "./config";
-
 export const MAX_SCR_WIDTH = 1920;
 export const MAX_SCR_HEIGHT = 1050;
 export const DEBUG_EFFECTS = false;

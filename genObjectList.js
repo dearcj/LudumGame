@@ -18,6 +18,12 @@ getFileList = (files) => {
     return shortFiles;
 };
 
+let _counter = 0;
+let counter = () => {_counter++};
+let checkCloseWS = (ws) => {
+    counter();
+    if (_counter == 3) ws.end();
+}
 
 fs.readdir(objFolder, (err, files) => {
     let shortFiles = [];
@@ -40,6 +46,7 @@ fs.readdir(objFolder, (err, files) => {
             ws.write("  " + str + " :" + str + ",\n")
         });
         ws.write("};");
+        checkCloseWS(ws);
 
     });
 
@@ -65,9 +72,10 @@ fs.readdir(objFolder, (err, files) => {
         });
 
         ws.write("];");
-        ws.end();
+        checkCloseWS(ws);
 
     });
+    checkCloseWS(ws);
 
 
 });
