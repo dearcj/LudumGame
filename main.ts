@@ -7,7 +7,6 @@ import {PauseTimer} from "./Neu/PauseTimer";
 import {Controls} from "./Neu/Controls";
 import {m, Vec2} from "./Neu/Math";
 import {AnimClip} from "./Neu/PIXIPlugins/AnimClip";
-import {Engine, Runner} from "./lib/matter";
 import {ResourceManager} from "./Neu/ResourceManager";
 import {LevelNames} from "./ObjectsList";
 import './node_modules/pixi-heaven/dist/pixi-heaven.js';
@@ -32,7 +31,7 @@ export type PIXIContainer = any;
 export type PIXIRectangle = any;
 declare let Playtomic: any;
 declare var $: any;
-
+//asdasd
 const GLOBAL_MUSIC_ASSETS = [];
 
 const GLOBAL_SOUND_ASSETS = [
@@ -53,7 +52,6 @@ const GLOBAL_ASSETS = [
     'atlas/allluts.png',
 
     'atlas/tiles1.json',
-    'atlas/effects.json',
 
     ///////////////////////////////////////////
     // Fonts
