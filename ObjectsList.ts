@@ -5,6 +5,7 @@ import {ChainCreator} from "./Objects/ChainCreator";
 import {ChestParticles} from "./Objects/ChestParticles";
 import {DarkParticleSystem} from "./Objects/DarkParticleSystem";
 import {FogParticleSystem} from "./Objects/FogParticleSystem";
+import {ParticleSystem} from "./Objects/ParticleSystem";
 import {Aligner} from "./Neu/BaseObjects/Aligner";
 import {BaseParticleSystem} from "./Neu/BaseObjects/BaseParticleSystem";
 import {Button} from "./Neu/BaseObjects/Button";
@@ -28,6 +29,7 @@ export let ObjectNames = {
   ChestParticles :ChestParticles,
   DarkParticleSystem :DarkParticleSystem,
   FogParticleSystem :FogParticleSystem,
+  ParticleSystem :ParticleSystem,
   Aligner :Aligner,
   BaseParticleSystem :BaseParticleSystem,
   Button :Button,

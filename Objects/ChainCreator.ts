@@ -69,7 +69,7 @@ export class ChainCreator extends O{
 
     process() {
         for (let x of this.bodiesList) {
-            Body.applyForce(x, Vector.create(x.position.x, x.position.y), Vector.create(_.game.wind[0] / 100000, _.game.wind[1] / 100000))
+            Body.applyForce(x, Vector.create(x.position.x, x.position.y), Vector.create(0, 0))
         }
     }
 }

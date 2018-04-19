@@ -1,10 +1,7 @@
-import {Actor} from "./Actor";
 import {O} from "../Neu/BaseObjects/O";
 import {Camera} from "../Neu/BaseObjects/Camera";
 import {m, Vec2} from "../Neu/Math";
-import {config} from "../config";
 import {_} from "../main";
-import {EnemyObject} from "../protoTypeScript/compiled";
 import {PauseTimer} from "../Neu/PauseTimer";
 import {BaseParticleSystem} from "../Neu/BaseObjects/BaseParticleSystem";
 

@@ -26,7 +26,7 @@ export class Candle extends O{
     }
 
     process() {
-        this.gfx.skew.x = this.skewx - _.game.wind[0] / 50;
+        this.gfx.skew.x = this.skewx;
         super.process()
     }
 

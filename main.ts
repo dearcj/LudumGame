@@ -25,6 +25,7 @@ import "./node_modules/fmath/src/FMath.js"
 import {ColorGradingShader} from "./shaders/ColorGradingShader";
 import {Menu} from "./Stages/Menu";
 import {Game} from "./Stages/Game";
+import {ProgramAnimations} from "./Utils/ProgramAnimations";
 export let FMath = (<any>window).FMath;
 declare let Stats: any;
 export type PIXIContainer = any;

@@ -1,5 +1,4 @@
 import {m, Vec2} from "../Neu/Math";
-import {config} from "../config";
 import {_} from "../main";
 import {BaseParticleSystem} from "../Neu/BaseObjects/BaseParticleSystem";
 
@@ -110,8 +109,6 @@ export class DarkParticleSystem extends BaseParticleSystem{
         p.rotation = pobj.angle;
         p.alpha =  0.1 + deltaY*0.05;
 
-        pobj.windx += _.game.wind[0];
-        pobj.windy += _.game.wind[1];
         pobj.windx *= 0.8;
         pobj.windy *= 0.8;
         let addwx = pobj.windx;

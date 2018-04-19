@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "fmath": "^1.0.1",
+    "http-server": "^0.11.1",
     "pixi-heaven": "^0.1.11",
     "protobufjs": "^6.8.3"
   },

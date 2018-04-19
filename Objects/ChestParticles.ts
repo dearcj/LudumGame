@@ -1,9 +1,8 @@
 import {m, Vec2} from "../Neu/Math";
-import {config} from "../config";
 import {_} from "../main";
 import {BaseParticleSystem} from "../Neu/BaseObjects/BaseParticleSystem";
-import {Particle} from "./ParticleSystem";
 import {O} from "../Neu/BaseObjects/O";
+import {Particle} from "./ParticleSystem";
 
 export type PolyLineSegment = {
     start: Vec2;
