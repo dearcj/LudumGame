@@ -1,8 +1,16 @@
 {"frames": {
 
+"RTS_Crate_0":
+{
+	"frame": {"x":4,"y":4,"w":250,"h":250},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":250,"h":250},
+	"sourceSize": {"w":250,"h":250}
+},
 "Random":
 {
-	"frame": {"x":4,"y":4,"w":188,"h":222},
+	"frame": {"x":4,"y":260,"w":188,"h":222},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":51,"y":41,"w":188,"h":222},
@@ -13,8 +21,8 @@
 	"version": "1.0",
 	"image": "atlas.png",
 	"format": "RGBA8888",
-	"size": {"w":256,"h":256},
+	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:cf5a498b249425afe1dc54d0ef1a2ec9$"
+	"smartupdate": "$TexturePacker:SmartUpdate:f13742fef9e33650a42eff86acec9c0b$"
 }
 }

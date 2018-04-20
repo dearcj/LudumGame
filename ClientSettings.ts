@@ -1,5 +1,5 @@
 export const MAX_SCR_WIDTH = 1050;
-export const MAX_SCR_HEIGHT = 800;
+export const MAX_SCR_HEIGHT = 768;
 export const DEBUG_EFFECTS = false;
 export const SKIP_MENU: boolean = false;//!DEBUG_EFFECTS;
 export const MIN_SCR_WIDTH = 1024;

@@ -6,6 +6,7 @@ import {ChestParticles} from "./Objects/ChestParticles";
 import {DarkParticleSystem} from "./Objects/DarkParticleSystem";
 import {FogParticleSystem} from "./Objects/FogParticleSystem";
 import {ParticleSystem} from "./Objects/ParticleSystem";
+import {Phys} from "./Objects/Phys";
 
 export let LevelNames = [
   "levels/game.tmx",
@@ -34,6 +35,7 @@ export let ObjectNames = {
   DarkParticleSystem :DarkParticleSystem,
   FogParticleSystem :FogParticleSystem,
   ParticleSystem :ParticleSystem,
+  Phys :Phys,
   Aligner :Aligner,
   BaseParticleSystem :BaseParticleSystem,
   Button :Button,

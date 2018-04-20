@@ -181,7 +181,6 @@ export class Main extends Application {
     loadComplete(): void {
         this.isInitialLoading = false;
         this.loadTime = (new Date()).getTime() - (<any>window).startTime.getTime();
-
         this.clearPreloader();
 
         const interaction = this.app.renderer.plugins.interaction;
@@ -189,12 +188,12 @@ export class Main extends Application {
             if (this.globalMouseDown) this.globalMouseDown(e)
         });
         
-        interaction.cursorStyles["init"] = "url(./cursors/cursor.png), default";
+/*        interaction.cursorStyles["init"] = "url(./cursors/cursor.png), default";
         interaction.cursorStyles["default"] = "url(./cursors/cursor.png), default";
         interaction.cursorStyles["pointer"] = "url(./cursors/hand.png), pointer";
         interaction.cursorStyles["skill"] = "url(./cursors/cursor_skill.png), pointer";
         interaction.currentCursorMode = "init";
-        
+  */
         this.app.stage.interactive = true;
         this.app.stage.cursor = "init";
         _.sm.openStage(_.game)
