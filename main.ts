@@ -230,9 +230,10 @@ export class Main extends Application {
     load(): void {
         this.loadingCounter = 0;
         this.initPreloader();
-        this.engine = Engine.create();
+
         let runner = Runner.create({});
         Runner.run(runner, this.engine);
+
         let onAssetsLoaded = () => {
             this.drawPreloaderProgress(100);
             this.loadingCounter++;
