@@ -1,8 +1,16 @@
 {"frames": {
 
+"Lol_circle":
+{
+	"frame": {"x":4,"y":594,"w":886,"h":887},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":886,"h":887},
+	"sourceSize": {"w":886,"h":887}
+},
 "RTS_Crate_0":
 {
-	"frame": {"x":4,"y":4,"w":250,"h":250},
+	"frame": {"x":4,"y":1486,"w":250,"h":250},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":250,"h":250},
@@ -10,19 +18,27 @@
 },
 "Random":
 {
-	"frame": {"x":4,"y":260,"w":188,"h":222},
+	"frame": {"x":4,"y":1742,"w":188,"h":222},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":51,"y":41,"w":188,"h":222},
 	"sourceSize": {"w":300,"h":300}
+},
+"img_34605":
+{
+	"frame": {"x":4,"y":4,"w":980,"h":584},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":980,"h":584},
+	"sourceSize": {"w":980,"h":584}
 }},
 "meta": {
 	"app": "http://www.texturepacker.com",
 	"version": "1.0",
 	"image": "atlas.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":512},
+	"size": {"w":1024,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:f13742fef9e33650a42eff86acec9c0b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ded166bb458abdc9cbbed0f168ab905b$"
 }
 }

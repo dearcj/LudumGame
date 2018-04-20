@@ -1,9 +1,9 @@
-export const MAX_SCR_WIDTH = 1050;
-export const MAX_SCR_HEIGHT = 768;
+export const MAX_SCR_WIDTH = 1280;
+export const MAX_SCR_HEIGHT = 720;
 export const DEBUG_EFFECTS = false;
 export const SKIP_MENU: boolean = false;//!DEBUG_EFFECTS;
-export const MIN_SCR_WIDTH = 1024;
-export const MIN_SCR_HEIGHT = 768;//config.Client.ScreenHeight;
+export const MIN_SCR_WIDTH = 1280;
+export const MIN_SCR_HEIGHT = 720;//config.Client.ScreenHeight;
 export const CAMERA_DEBUG: boolean = true;
 export const SCR_SCALE = 1.0;
 export const FRAME_RATE = 60;

@@ -7,7 +7,7 @@ import {PauseTimer} from "./Neu/PauseTimer";
 import {Controls} from "./Neu/Controls";
 import {m, Vec2} from "./Neu/Math";
 import {AnimClip} from "./Neu/PIXIPlugins/AnimClip";
-import {Engine, Runner} from "./lib/matter";
+import {Engine, Render, Runner} from "./lib/matter";
 import {ResourceManager} from "./Neu/ResourceManager";
 import {LevelNames} from "./ObjectsList";
 import './node_modules/pixi-heaven/dist/pixi-heaven.js';
@@ -98,7 +98,7 @@ export class Main extends Application {
     assets: Array<string>;
     assetsLoaded: number = 0;
     private loadingCounter: number = 0;
-
+    private PHYS_DEBUG: boolean = false;
 
     constructor(msw: number, msh: number) {
         super(msw, msh);
@@ -234,6 +234,7 @@ export class Main extends Application {
         let runner = Runner.create({});
         Runner.run(runner, this.engine);
 
+
         let onAssetsLoaded = () => {
             this.drawPreloaderProgress(100);
             this.loadingCounter++;
@@ -248,6 +249,16 @@ export class Main extends Application {
 
         this.sound = new Sound();
         this.sound.load(GLOBAL_MUSIC_ASSETS, GLOBAL_SOUND_ASSETS, onAssetsLoaded);
+
+        if (this.PHYS_DEBUG) {
+        var render = Render.create({
+            element: document.body,
+            engine: this.engine,
+            options: {}
+
+        });
+        Render.run(render);
+        }
     }
     process(): void{
         super.process();
