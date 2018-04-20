@@ -7,6 +7,7 @@ import {PauseTimer} from "./Neu/PauseTimer";
 import {Controls} from "./Neu/Controls";
 import {m, Vec2} from "./Neu/Math";
 import {AnimClip} from "./Neu/PIXIPlugins/AnimClip";
+import {Engine, Runner} from "./lib/matter";
 import {ResourceManager} from "./Neu/ResourceManager";
 import {LevelNames} from "./ObjectsList";
 import './node_modules/pixi-heaven/dist/pixi-heaven.js';
@@ -50,15 +51,12 @@ const GLOBAL_ASSETS = [
     // Atlases
     ///////////////////////////////////////////
     'atlas/allluts.png',
-
-    'atlas/tiles1.json',
+    'atlas/atlas.json',
 
     ///////////////////////////////////////////
     // Fonts
     ///////////////////////////////////////////
-    'fonts/smallfontp.xml',
-    'fonts/smallfontx1.xml',
-    'atlas/dedgamecaps.xml',
+    'fonts/Berkshire-export.xml',
 
 
     ///////////////////////////////////////////
@@ -161,6 +159,8 @@ export class Main extends Application {
 
         super.start();
 
+        _.lm.SkipSpriteExt = true;
+
         this.lm.customGlobalParamsCallback = (globalProperties: any) => {
             if (globalProperties["colorgrade"] ) {
                 this.sm.main.filters = [new ColorGradingShader('atlas/allluts.png', parseFloat(globalProperties["colorgrade"]))];
@@ -197,7 +197,7 @@ export class Main extends Application {
         
         this.app.stage.interactive = true;
         this.app.stage.cursor = "init";
-        
+        _.sm.openStage(_.game)
     }
 
     initPreloader() {

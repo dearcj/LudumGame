@@ -6,7 +6,11 @@ import {ChestParticles} from "./Objects/ChestParticles";
 import {DarkParticleSystem} from "./Objects/DarkParticleSystem";
 import {FogParticleSystem} from "./Objects/FogParticleSystem";
 import {ParticleSystem} from "./Objects/ParticleSystem";
-import {Aligner} from "./Neu/BaseObjects/Aligner";
+
+export let LevelNames = [
+  "levels/game.tmx",
+  "levels/tileset.tsx",
+];import {Aligner} from "./Neu/BaseObjects/Aligner";
 import {BaseParticleSystem} from "./Neu/BaseObjects/BaseParticleSystem";
 import {Button} from "./Neu/BaseObjects/Button";
 import {Camera} from "./Neu/BaseObjects/Camera";
@@ -45,5 +49,3 @@ export let ObjectNames = {
   Tooltip :Tooltip,
   TrainEffect :TrainEffect,
 };
-export let LevelNames = [
-];
