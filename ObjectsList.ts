@@ -4,12 +4,20 @@ import {Candle} from "./Objects/Candle";
 import {ChainCreator} from "./Objects/ChainCreator";
 import {ChestParticles} from "./Objects/ChestParticles";
 import {DarkParticleSystem} from "./Objects/DarkParticleSystem";
+import {Exit} from "./Objects/Exit";
 import {FogParticleSystem} from "./Objects/FogParticleSystem";
+import {Lighting2} from "./Objects/Lighting2";
+import {Monster} from "./Objects/Monster";
 import {ParticleSystem} from "./Objects/ParticleSystem";
+import {Pawn} from "./Objects/Pawn";
 import {Phys} from "./Objects/Phys";
+import {Player} from "./Objects/Player";
+import {Tower} from "./Objects/Tower";
 
 export let LevelNames = [
   "levels/game.tmx",
+  "levels/level1.tmx",
+  "levels/menu.tmx",
   "levels/tileset.tsx",
 ];import {Aligner} from "./Neu/BaseObjects/Aligner";
 import {BaseParticleSystem} from "./Neu/BaseObjects/BaseParticleSystem";
@@ -33,9 +41,15 @@ export let ObjectNames = {
   ChainCreator :ChainCreator,
   ChestParticles :ChestParticles,
   DarkParticleSystem :DarkParticleSystem,
+  Exit :Exit,
   FogParticleSystem :FogParticleSystem,
+  Lighting2 :Lighting2,
+  Monster :Monster,
   ParticleSystem :ParticleSystem,
+  Pawn :Pawn,
   Phys :Phys,
+  Player :Player,
+  Tower :Tower,
   Aligner :Aligner,
   BaseParticleSystem :BaseParticleSystem,
   Button :Button,

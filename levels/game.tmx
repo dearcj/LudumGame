@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#556a28" nextobjectid="23">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <objectgroup draworder="index" name="gui"/>
+ <objectgroup color="#212420" name="utils" locked="1" opacity="0.2">
+  <object id="18" x="1" y="2" width="6" height="720"/>
+  <object id="20" x="1274" y="2" width="6" height="720"/>
+  <object id="21" x="1280" y="713" width="6.27778" height="1280" rotation="-270"/>
+  <object id="22" x="1282" y="1" width="6" height="1280" rotation="-270"/>
+ </objectgroup>
+</map>
