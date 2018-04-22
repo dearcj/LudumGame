@@ -196,7 +196,7 @@ export class Main extends Application {
   */
         this.app.stage.interactive = true;
         this.app.stage.cursor = "init";
-        _.sm.openStage(_.game)
+        _.sm.openStage(_.menu)
     }
 
     initPreloader() {
@@ -242,6 +242,11 @@ export class Main extends Application {
         };
 
         this.rm = new ResourceManager();
+
+        this.rm.requestSpine("Teleport", (data)=>{});
+        this.rm.requestSpine("Slime", (data)=>{});
+        this.rm.requestSpine("Spider_final", (data)=>{});
+        this.rm.requestSpine("Teleport", (data)=>{});
         this.rm.loadAssets(GLOBAL_ASSETS.concat(LevelNames), (loader: any, evt: any) => {
             this.drawPreloaderProgress(loader.progress);
             this.assetsLoaded++;

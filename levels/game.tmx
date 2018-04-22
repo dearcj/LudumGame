@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#556a28" nextobjectid="27">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#556a28" nextobjectid="33">
  <tileset firstgid="1" source="tileset.tsx"/>
  <objectgroup draworder="index" name="light">
-  <object id="23" name="light1" type="Light" gid="11" x="21" y="655" width="1148" height="568.108">
+  <object id="23" name="light1" type="Light" gid="11" x="-1164" y="-645" width="1148" height="568.108">
    <properties>
     <property name="candle" type="bool" value="false"/>
     <property name="color" type="color" value="#ffd3bb94"/>

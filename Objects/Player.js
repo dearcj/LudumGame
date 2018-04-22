@@ -17,39 +17,60 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
             return _super !== null && _super.apply(this, arguments) || this;
         }
         Player.prototype.hitAnim = function () {
+            main_1._.game.fail = true;
             main_1._.pa.DamageTint(this, 0.2);
+            this.gfx.state.setAnimation(0, "Dead", false);
             main_1._.game.player.wait(0.6).call(function () {
                 main_1._.game.restart();
             }).apply();
         };
         Player.prototype.process = function () {
             _super.prototype.process.call(this);
-            this.light.x = this.x;
-            this.light.y = this.y + 34;
+            if (this.light) {
+                this.light.x = this.x;
+                this.light.y = this.y + 34;
+            }
         };
         Player.prototype.init = function (props) {
             var _this = this;
-            this.gfx = main_1._.cs("hero_horse", this.layer);
-            this.light = main_1._.sm.findOne("light1");
-            //create gfx here
-            this.setMyCell_noOCCUPY();
-            var prevScaleX = this.light.gfx.scale.x;
-            var prevScaleY = this.light.gfx.scale.y;
-            this.light.gfx.scale.x = 0.1;
-            this.light.gfx.scale.y = 0.1;
-            Application_1.TweenMax.to(this.light.gfx.scale, 1.2, { delay: .5, x: prevScaleX, y: prevScaleY, ease: Tower_1.TOWER_EASE, onComplete: function () {
-                    _this.light.isCandle = true;
-                    _this.light.initSize = [_this.light.gfx.width, _this.light.gfx.height];
-                } });
-            main_1._.game.occupy(this.cell, this);
-            var prevY = this.y;
-            this.gfx.alpha = 0;
-            this.y -= 500;
-            Application_1.TweenMax.to(this, 1, { y: prevY, ease: Application_1.Power1.easeIn });
-            Application_1.TweenMax.to(this.gfx, 1, { alpha: 1, ease: Application_1.Power1.easeIn });
-            main_1._.game.anim.do(function () { }, 0.5);
-            _super.prototype.init.call(this, props);
-            this.process();
+            main_1._.rm.requestSpine("Horse", function (data) {
+                _this.gfx = new PIXI.heaven.spine.Spine(data);
+                _this.gfx.scale.set(0.12);
+                _this.wait(0.73).call(function () {
+                    _this.gfx.state.setAnimation(0, "Appear", false);
+                });
+                _this.wait(1).call(function () {
+                    _this.gfx.state.setAnimation(0, "Idle", true);
+                }).apply();
+                _this.gfx.pivot.y = 1;
+                _this.process();
+                _this.layer.addChild(_this.gfx);
+                _this.setMyCell_noOCCUPY();
+                main_1._.game.occupy(_this.cell, _this);
+                var prevY = _this.y;
+                _this.gfx.alpha = 0;
+                _this.y -= 500;
+                Application_1.TweenMax.to(_this, 0.8, { y: prevY, ease: Application_1.Power1.easeIn });
+                Application_1.TweenMax.to(_this.gfx, 1, { alpha: 1, ease: Application_1.Power1.easeIn });
+                _this.light = main_1._.sm.findOne("light1");
+                //create gfx here
+                var prevScaleX = _this.light.gfx.scale.x;
+                var prevScaleY = _this.light.gfx.scale.y;
+                _this.light.gfx.scale.x = 0.1;
+                _this.light.gfx.scale.y = 0.1;
+                Application_1.TweenMax.to(_this.light.gfx.scale, 1.2, {
+                    delay: 0., x: prevScaleX, y: prevScaleY, ease: Tower_1.TOWER_EASE, onComplete: function () {
+                        _this.light.isCandle = true;
+                        _this.light.initSize = [_this.light.gfx.width, _this.light.gfx.height];
+                    }
+                });
+                _super.prototype.init.call(_this, props);
+                main_1._.sm.camera.wait(1).call(function () {
+                    main_1._.game.setPlayerTurn();
+                }).apply();
+                main_1._.game.anim.do(function () {
+                }, 0.5);
+            });
         };
         Player.prototype.getMoves = function () {
             var submoves = [
@@ -91,8 +112,22 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
                         Application_1.TweenMax.to(x, 0.15, { delay: delay, y: x.y + 12, yoyo: true, repeat: 1 });
                         Application_1.TweenMax.to(x.gfx.scale, 0.15, { delay: delay, x: 0.96, y: 0.96, yoyo: true, repeat: 1 });
                         var heaven = x.gfx;
-                        Application_1.TweenMax.to(x.gfx.color, 0.2, { delay: delay, lightB: 1, lightG: 1, darkR: 0.2, darkG: 0.2, darkB: 0.2 });
-                        Application_1.TweenMax.to(x.gfx.color, 0.5, { delay: delay + 0.2, lightB: 1, lightG: 1, darkR: 0., darkG: 0., darkB: 0. });
+                        Application_1.TweenMax.to(x.gfx.color, 0.2, {
+                            delay: delay,
+                            lightB: 1,
+                            lightG: 1,
+                            darkR: 0.4,
+                            darkG: 0.4,
+                            darkB: 0.3
+                        });
+                        Application_1.TweenMax.to(x.gfx.color, 0.5, {
+                            delay: delay + 0.2,
+                            lightB: 1,
+                            lightG: 1,
+                            darkR: 0.,
+                            darkG: 0.,
+                            darkB: 0.
+                        });
                     }
                 }
             };
@@ -114,6 +149,12 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
             var t1 = new Application_1.TimelineMax();
             var counter = 0;
             var del = 0.;
+            if (dx < 0) {
+                this.gfx.scale.x = Math.abs(this.gfx.scale.x);
+            }
+            if (dx > 0) {
+                this.gfx.scale.x = -Math.abs(this.gfx.scale.x);
+            }
             animateTilesUnder(oldX, oldY, 0);
             for (var _i = 0, path_1 = path; _i < path_1.length; _i++) {
                 var p = path_1[_i];

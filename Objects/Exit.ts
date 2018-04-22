@@ -7,13 +7,19 @@ import {ParticleSystem} from "./ParticleSystem";
 export class Exit extends CellObject {
     private light: Light;
     init(p: any) {
-        this.gfx = _.cs("exit");
-
+        this.setMyCell_noOCCUPY();
         this.light = new Light([this.x, this.y ]);
         this.light.gfx = _.cs("lightness", _.game.layers['lighting']);
         this.light.init({candle: true});
-        this.layer.addChildAt(this.gfx, 0);
-        this.setMyCell_noOCCUPY();
+
+        _.rm.requestSpine("Teleport", (data)=>{
+            this.gfx = new PIXI.heaven.spine.Spine(data);
+            this.gfx.scale.set(0.45);
+            this.gfx.state.setAnimation(0, "animation", true);
+            this.process();
+            this.layer.addChild(this.gfx);
+        });
+
        /* this.wait(0.05).call(()=>{
             let part: ParticleSystem = <ParticleSystem >_.sm.findOne("ps1");
             this.setInterval(()=>{

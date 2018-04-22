@@ -11,19 +11,36 @@ export const TOWER_EASE = (<any>window).CustomEase.create("custom",
 export class Tower extends Monster {
     lastAngle: number = 0;
 
-    moveTo(d: MapCell): any {
+    moveTo(d: MapCell, coef: number = 1): any {
         _.game.occupy(d, this);
         let p = _.game.getCellPoint(d.x, d.y);
-        TweenMax.to(this, 0.84, {x: p[0], y: p[1], ease: TOWER_EASE});
-        TweenMax.to(this.gfx.scale, 0.25, {x: 1.1, y: 1.1, yoyo:true, repeat: 1});
+        TweenMax.to(this, 0.84*coef, {x: p[0], y: p[1], ease: TOWER_EASE});
+        let defscale = this.gfx.scale.x;
+       // TweenMax.to(this.gfx.scale, 0.25, {x: defscale*1.1, y: defscale*1.1, yoyo:true, repeat: 1});
     }
 
     init(props: any): any {
-        this.gfx = _.cs("hero_tower", this.layer);
+        _.rm.requestSpine("Spider_final", (data)=> {
+            this.gfx = new PIXI.heaven.spine.Spine(data);
+            let l = Math.random();
+            if (l < 0.3) {
+                this.gfx.state.setAnimation(0, "Idle", true);
+            } else
+            if (l < 0.6) {
+                this.gfx.state.setAnimation(0, "Idle2", true);
+            } else
+                this.gfx.state.setAnimation(0, "Idle3", true);
+
+            this.gfx.scale.set(0.12);
+            this.gfx.pivot.y = 1;
+            this.layer.addChild(this.gfx);
+            this.setMyCell_noOCCUPY();
+            this.alignToCell();
+            super.init(props);
+        });
+
         this.setMyCell_noOCCUPY();
         _.game.occupy(this.cell, this);
-        this.alignToCell();
-        super.init(props);
     }
 
     getTowerMoves(): MapCell {
@@ -79,8 +96,11 @@ export class Tower extends Monster {
         }
         let dest = this.tryHitPlayer();
         if (dest) {
-                this.moveTo(dest);
-                _.game.player.hitAnim();
+                this.moveTo(dest, 2);
+                this.gfx.state.setAnimation(0, "Blow", false);
+                this.wait(0.3).call(()=>{
+                    _.game.player.hitAnim();
+                }).apply();
 
             _.game.anim.block(0.4);
             return true;

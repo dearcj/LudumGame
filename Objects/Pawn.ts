@@ -50,11 +50,22 @@ export class Pawn extends Monster {
     }
 
     init(props: any): any {
-        this.gfx = _.cs("hero_pawn", this.layer);
+        _.rm.requestSpine("Slime", (data)=> {
+            this.gfx = new PIXI.heaven.spine.Spine(data);
+
+            this.gfx.scale.set(0.01);
+
+            TweenMax.to(this.gfx.scale, 0.5, {x: 0.13, y: 0.13});
+            this.gfx.state.setAnimation(0, "Idle", true);
+            this.gfx.pivot.y = 1;
+            this.process();
+            this.layer.addChild(this.gfx);
+            this.alignToCell();
+            super.init(props);
+        });
+
         this.setMyCell_noOCCUPY();
         _.game.occupy(this.cell, this);
-        this.alignToCell();
-        super.init(props);
     }
 
 
@@ -91,6 +102,7 @@ export class Pawn extends Monster {
                 let cell = _.game.getCell(xx);
                 if (cell.OccupiedBy == _.game.player) {
                     this.hitAnimation(cell);
+                    this.gfx.state.setAnimation(0, "Blow", false);
 
                     _.game.player.wait(0.1).call(() => {
                         _.game.player.hitAnim();

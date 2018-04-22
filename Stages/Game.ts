@@ -18,7 +18,8 @@ import {Light} from "../Neu/BaseObjects/Light";
 import {TextBox} from "../Neu/BaseObjects/TextBox";
 import {DeathPoint} from "../Objects/DeathPoint";
 import {TowerDeath} from "../Objects/TowerDeath";
-const START_LEVEL = 3;
+const START_LEVEL = 1;
+
 export type MapCell = {
     x: number,
     y: number,
@@ -76,8 +77,10 @@ export class Game extends Stage {
     makeZOrder() {
         let list = _.sm.findByType(ActiveCellObject);
         for (let l of list) {
-            l.layer = l.gfx.parent;
-            O.rp(list);
+            if (l.gfx) {
+                l.layer = l.gfx.parent;
+                O.rp(l.gfx);
+            }
         }
 
         list.sort((a, b: ActiveCellObject) => {
@@ -85,6 +88,7 @@ export class Game extends Stage {
         });
 
         for (let l of list) {
+            if (l.gfx)
             l.layer.addChild(l.gfx);
         }
     }
@@ -125,7 +129,11 @@ export class Game extends Stage {
         this.aoiLR = [aoi.pos[0] - aoi.width / 2, aoi.pos[1] - aoi.height / 2];
         this.aoiWH = [aoi.width, aoi.height];
         Lighting2.POWER= 1;
-        //_.sm.main.filters = [new ColorGradingShader('atlas/allluts.png', )];
+        if (this.level == 2) {
+            _.sm.main.filters = [new ColorGradingShader('atlas/allluts.png', 1)];
+        } else {
+            _.sm.main.filters = [];//[new ColorGradingShader('atlas/allluts.png', 0)];
+        }
         TweenMax.to(_.sm.camera, 1.5, {delay: .2, zoom: 0.65, ease: Power1.easeOut});
         //_.sm.camera.zoom = 0.65;
         this.player = _.sm.findByType(Player)[0];
@@ -139,9 +147,7 @@ export class Game extends Stage {
             this.lighting.envColor = [255, 250, 240, 230];
             this.lighting.envColorDark = [15, 0, 0, 0];
             this.lighting.redraw();
-            _.sm.camera.wait(1).call(()=>{
-                this.setPlayerTurn();
-            }).apply();
+
     }
 
     process() {

@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="tileset" tilewidth="1280" tileheight="887" tilecount="46" columns="0">
+<tileset name="tileset" tilewidth="1280" tileheight="720" tilecount="58" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
-  <image width="300" height="300" source="../atlasres/Random.png"/>
+  <image source="../atlasres/Random.png"/>
  </tile>
  <tile id="1">
-  <image width="250" height="250" source="../atlasres/RTS_Crate_0.png"/>
+  <image source="../atlasres/RTS_Crate_0.png"/>
  </tile>
  <tile id="2">
   <image width="980" height="584" source="../atlasres/img_34605.png"/>
- </tile>
- <tile id="3">
-  <image width="886" height="887" source="../atlasres/Lol_circle.png"/>
  </tile>
  <tile id="4">
   <image width="128" height="128" source="../atlasres/cellblack.png"/>
@@ -138,5 +135,44 @@
  </tile>
  <tile id="45">
   <image width="128" height="128" source="../atlasres/cell_white_crack.png"/>
+ </tile>
+ <tile id="46">
+  <image width="128" height="167" source="../atlasres/candle_stone.png"/>
+ </tile>
+ <tile id="47">
+  <image width="9" height="128" source="../atlasres/cells_borders_left.png"/>
+ </tile>
+ <tile id="48">
+  <image width="9" height="128" source="../atlasres/cells_borders_right.png"/>
+ </tile>
+ <tile id="49">
+  <image width="402" height="212" source="../atlasres/trash_hell-chain.png"/>
+ </tile>
+ <tile id="50">
+  <image width="57" height="47" source="../atlasres/trash_stones_1.png"/>
+ </tile>
+ <tile id="51">
+  <image width="56" height="34" source="../atlasres/trash_stones_2.png"/>
+ </tile>
+ <tile id="52">
+  <image width="57" height="38" source="../atlasres/trash_stones_3.png"/>
+ </tile>
+ <tile id="53">
+  <image source="../atlasres/gradient.png"/>
+ </tile>
+ <tile id="54">
+  <image width="128" height="128" source="../atlasres/grad.png"/>
+ </tile>
+ <tile id="55">
+  <image width="704" height="253" source="../atlasres/start_button.png"/>
+ </tile>
+ <tile id="56">
+  <image width="800" height="405" source="../atlasres/tutor_enemy.png"/>
+ </tile>
+ <tile id="57">
+  <image width="1200" height="363" source="../atlasres/tutor_horse.png"/>
+ </tile>
+ <tile id="58">
+  <image width="594" height="476" source="../atlasres/Mare.png"/>
  </tile>
 </tileset>
