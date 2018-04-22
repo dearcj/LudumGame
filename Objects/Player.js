@@ -8,40 +8,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "../Neu/BaseObjects/O", "../main", "../Neu/Math", "../Neu/Application"], function (require, exports, O_1, main_1, Math_1, Application_1) {
+define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", "./ActiveCellObject", "./Tower"], function (require, exports, main_1, Math_1, Application_1, ActiveCellObject_1, Tower_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var CellObject = /** @class */ (function (_super) {
-        __extends(CellObject, _super);
-        function CellObject() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.reactOnMove = false;
-            return _this;
-        }
-        CellObject.prototype.onTurnEnd = function () {
-        };
-        CellObject.prototype.setMyCell_noOCCUPY = function () {
-            var cellcoord = main_1._.game.getObjectCell(this);
-            this.cell = main_1._.game.map[cellcoord[0]][cellcoord[1]];
-        };
-        CellObject.prototype.onPlayerMove = function () {
-            return true;
-        };
-        CellObject.prototype.setCell = function (cell) {
-            this.cell = cell;
-            this.alignToCell();
-        };
-        CellObject.prototype.alignToCell = function () {
-            if (this.cell) {
-                var cp = main_1._.game.getCellPoint(this.cell.x, this.cell.y);
-                this.pos[0] = cp[0];
-                this.pos[1] = cp[1];
-            }
-            main_1._.sm.camera.updateTransform(this, this.gfx);
-        };
-        return CellObject;
-    }(O_1.O));
-    exports.CellObject = CellObject;
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
         function Player() {
@@ -49,13 +18,38 @@ define(["require", "exports", "../Neu/BaseObjects/O", "../main", "../Neu/Math", 
         }
         Player.prototype.hitAnim = function () {
             main_1._.pa.DamageTint(this, 0.2);
+            main_1._.game.player.wait(0.6).call(function () {
+                main_1._.game.restart();
+            }).apply();
+        };
+        Player.prototype.process = function () {
+            _super.prototype.process.call(this);
+            this.light.x = this.x;
+            this.light.y = this.y + 34;
         };
         Player.prototype.init = function (props) {
+            var _this = this;
             this.gfx = main_1._.cs("hero_horse", this.layer);
+            this.light = main_1._.sm.findOne("light1");
             //create gfx here
             this.setMyCell_noOCCUPY();
+            var prevScaleX = this.light.gfx.scale.x;
+            var prevScaleY = this.light.gfx.scale.y;
+            this.light.gfx.scale.x = 0.1;
+            this.light.gfx.scale.y = 0.1;
+            Application_1.TweenMax.to(this.light.gfx.scale, 1.2, { delay: .5, x: prevScaleX, y: prevScaleY, ease: Tower_1.TOWER_EASE, onComplete: function () {
+                    _this.light.isCandle = true;
+                    _this.light.initSize = [_this.light.gfx.width, _this.light.gfx.height];
+                } });
             main_1._.game.occupy(this.cell, this);
+            var prevY = this.y;
+            this.gfx.alpha = 0;
+            this.y -= 500;
+            Application_1.TweenMax.to(this, 1, { y: prevY, ease: Application_1.Power1.easeIn });
+            Application_1.TweenMax.to(this.gfx, 1, { alpha: 1, ease: Application_1.Power1.easeIn });
+            main_1._.game.anim.do(function () { }, 0.5);
             _super.prototype.init.call(this, props);
+            this.process();
         };
         Player.prototype.getMoves = function () {
             var submoves = [
@@ -83,41 +77,56 @@ define(["require", "exports", "../Neu/BaseObjects/O", "../main", "../Neu/Math", 
             main_1._.game.over();
         };
         Player.prototype.moveTo = function (dest) {
-            var _this = this;
             var oldX = this.cell.x;
             var oldY = this.cell.y;
-            main_1._.game.anim.do(function () {
-                var dx = -Math_1.m.sign(oldX - dest.x);
-                var dy = -Math_1.m.sign(oldY - dest.y);
-                var animateTilesUnder = function (cx, cy) {
-                };
-                var cx = oldX;
-                var cy = oldY;
-                var path = [];
-                for (var j = 0; j < 5; j++) {
-                    if (cx != dest.x) {
-                        cx += dx;
-                        path.push(main_1._.game.getCellPoint(cx, cy));
-                        animateTilesUnder(cx, cy);
-                        continue;
-                    }
-                    if (cy != dest.y) {
-                        cy += dy;
-                        path.push(main_1._.game.getCellPoint(cx, cy));
-                        animateTilesUnder(cx, cy);
-                        continue;
+            var dx = -Math_1.m.sign(oldX - dest.x);
+            var dy = -Math_1.m.sign(oldY - dest.y);
+            var tiles1 = main_1._.sm.collectObjectsOnLayer(main_1._.game.layers['tilefg']);
+            var tiles2 = main_1._.sm.collectObjectsOnLayer(main_1._.game.layers['tilebg']);
+            var res = tiles1.concat(tiles2);
+            var animateTilesUnder = function (cx, cy, delay) {
+                for (var _i = 0, res_1 = res; _i < res_1.length; _i++) {
+                    var x = res_1[_i];
+                    if (x.tileColRow[0] == cx && x.tileColRow[1] == cy) {
+                        Application_1.TweenMax.to(x, 0.15, { delay: delay, y: x.y + 12, yoyo: true, repeat: 1 });
+                        Application_1.TweenMax.to(x.gfx.scale, 0.15, { delay: delay, x: 0.96, y: 0.96, yoyo: true, repeat: 1 });
+                        var heaven = x.gfx;
+                        Application_1.TweenMax.to(x.gfx.color, 0.2, { delay: delay, lightB: 1, lightG: 1, darkR: 0.2, darkG: 0.2, darkB: 0.2 });
+                        Application_1.TweenMax.to(x.gfx.color, 0.5, { delay: delay + 0.2, lightB: 1, lightG: 1, darkR: 0., darkG: 0., darkB: 0. });
                     }
                 }
-                var t1 = new Application_1.TimelineMax();
-                var counter = 0;
-                for (var _i = 0, path_1 = path; _i < path_1.length; _i++) {
-                    var p = path_1[_i];
-                    counter++;
-                    t1.to(_this, 0.15 + counter * 0.05, { x: p[0], y: p[1] });
+            };
+            var cx = oldX;
+            var cy = oldY;
+            var path = [];
+            for (var j = 0; j < 5; j++) {
+                if (cx != dest.x) {
+                    cx += dx;
+                    path.push([cx, cy]);
+                    continue;
                 }
-            }, 1.2);
+                if (cy != dest.y) {
+                    cy += dy;
+                    path.push([cx, cy]);
+                    continue;
+                }
+            }
+            var t1 = new Application_1.TimelineMax();
+            var counter = 0;
+            var del = 0.;
+            animateTilesUnder(oldX, oldY, 0);
+            for (var _i = 0, path_1 = path; _i < path_1.length; _i++) {
+                var p = path_1[_i];
+                counter++;
+                var pp = main_1._.game.getCellPoint(p[0], p[1]);
+                var time = 0.15 + counter * 0.05;
+                t1.to(this, time, { x: pp[0], y: pp[1] });
+                del += time;
+                animateTilesUnder(p[0], p[1], del * 0.75);
+            }
+            return 0.7;
         };
         return Player;
-    }(CellObject));
+    }(ActiveCellObject_1.ActiveCellObject));
     exports.Player = Player;
 });

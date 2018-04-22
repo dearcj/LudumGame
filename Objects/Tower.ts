@@ -1,10 +1,12 @@
 import {Monster} from "./Monster";
 import {_} from "../main";
 import {CustomEase, Elastic, Power2, Power3, TweenMax} from "../Neu/Application";
-import {CellObject, Player} from "./Player";
 import {m, Vec2} from "../Neu/Math";
 import {MapCell} from "../Stages/Game";
-export const TOWER_EASE = (<any>window).CustomEase.create("custom", "M0,0,C0,0,0.072,0.504,0.158,0.8,0.204,0.958,0.266,1.012,0.3,1.012,0.346,1.012,0.341,0.988,0.372,0.928,0.372,0.928,0.372,0.928,0.372,0.928,0.372,0.927,0.391,0.91,0.392,0.91,0.399,0.902,0.43,0.89,0.432,0.89,0.494,0.89,0.492,0.94,0.516,0.956,0.556,1,0.556,1.014,0.624,0.984,0.674,0.951,0.788,1,0.872,1,0.976,1,1,1,1,1");
+import {ActiveCellObject} from "./ActiveCellObject";
+export const TOWER_EASE = (<any>window).CustomEase.create("custom",
+    "M0,0,C0.126,0.382,0.351,0.72,0.5,0.878,0.682,1.07,0.818,1,1,1"
+);
 
 export class Tower extends Monster {
     lastAngle: number = 0;
@@ -12,7 +14,7 @@ export class Tower extends Monster {
     moveTo(d: MapCell): any {
         _.game.occupy(d, this);
         let p = _.game.getCellPoint(d.x, d.y);
-        TweenMax.to(this, 1.1, {x: p[0], y: p[1], ease: TOWER_EASE});
+        TweenMax.to(this, 0.84, {x: p[0], y: p[1], ease: TOWER_EASE});
         TweenMax.to(this.gfx.scale, 0.25, {x: 1.1, y: 1.1, yoyo:true, repeat: 1});
     }
 
@@ -27,8 +29,9 @@ export class Tower extends Monster {
     getTowerMoves(): MapCell {
         let x, y: number;
         let move: Vec2;
-        let end = false;
+        let end;
         for (let a = 0; a < 4; a++) {
+            end = false;
             this.lastAngle += Math.PI / 2;
             let dx = Math.round(Math.cos(this.lastAngle));
             let dy = Math.round(Math.sin(this.lastAngle));
@@ -76,12 +79,10 @@ export class Tower extends Monster {
         }
         let dest = this.tryHitPlayer();
         if (dest) {
-            _.game.anim.do(() => {
                 this.moveTo(dest);
-                _.game.player.wait(0.2).call(()=>{
-                    _.pa.DamageTint(_.game.player, 0.3);
-                }).apply();
-            }, 0.4);
+                _.game.player.hitAnim();
+
+            _.game.anim.block(0.4);
             return true;
         } else {
 
@@ -89,11 +90,11 @@ export class Tower extends Monster {
             if (pm) {
                 let cp = _.game.getCellPoint(pm.x, pm.y);
                 _.game.occupy(pm, this);
-                TweenMax.to(this, 0.2, {x: cp[0], y: cp[1]});
-                console.log("pawn have a move");
-                _.game.anim.do(() => {
+                this.moveTo(this.cell);
 
-                }, 0.1);
+                //TweenMax.to(this, 0.2, {x: cp[0], y: cp[1]});
+                console.log("pawn have a move");
+                _.game.anim.block(0.3);
                 return true;
             }
             return false;
@@ -121,7 +122,7 @@ export class Tower extends Monster {
         return null
     }
 
-    private checkPlayerOnLine(y: number, x: number, y2: number, x2: number, player: Player): MapCell {
+    private checkPlayerOnLine(y: number, x: number, y2: number, x2: number, player: ActiveCellObject): MapCell {
         let killed = false;
         let dest: Vec2 = null;
 
@@ -166,6 +167,8 @@ export class Tower extends Monster {
                         break;
                     }
 
+                } else {
+                    break;
                 }
             }
         }

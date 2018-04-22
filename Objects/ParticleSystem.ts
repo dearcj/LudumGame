@@ -37,8 +37,8 @@ export class ParticleSystem extends BaseParticleSystem{
         const po: Particle = {
             alpha: 1,
             av: 0,
-            baseScaleX: baseScaleX,
-            baseScaleY: baseScaleY,
+            baseScaleX: 2*baseScaleX,
+            baseScaleY: 2*baseScaleY,
             v: [0,0],
             lifeTime: 20 + 22*Math.random(),
             x: p.x,
@@ -65,10 +65,10 @@ export class ParticleSystem extends BaseParticleSystem{
         };
 
         this.setInterval(() => {
-            addPart();
+            addPart(Math.random()*1200);
         }, 0.8);
         for (let x = 0; x < 50; x++) {
-            addPart(Math.random()*700)
+            addPart(Math.random()*1200)
         }
         this.includeWind = true;
 
@@ -127,8 +127,8 @@ export class ParticleSystem extends BaseParticleSystem{
         } else
             p.gotoAndStop(0);
 
-        if (p.lifeTime < 0.5) {
-            pobj.alpha = pobj.lifeTime / 0.5;
+        if (p.lifeTime < 0.1) {
+            pobj.alpha = pobj.lifeTime / 0.1;
         }
         p.alpha = pobj.alpha;
 

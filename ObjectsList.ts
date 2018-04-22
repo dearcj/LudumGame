@@ -1,9 +1,12 @@
+import {ActiveCellObject} from "./Objects/ActiveCellObject";
 import {Background} from "./Objects/Background";
 import {BackgroundFar} from "./Objects/BackgroundFar";
 import {Candle} from "./Objects/Candle";
+import {CellObject} from "./Objects/CellObject";
 import {ChainCreator} from "./Objects/ChainCreator";
 import {ChestParticles} from "./Objects/ChestParticles";
 import {DarkParticleSystem} from "./Objects/DarkParticleSystem";
+import {DeathPoint} from "./Objects/DeathPoint";
 import {Exit} from "./Objects/Exit";
 import {FogParticleSystem} from "./Objects/FogParticleSystem";
 import {Lighting2} from "./Objects/Lighting2";
@@ -13,10 +16,15 @@ import {Pawn} from "./Objects/Pawn";
 import {Phys} from "./Objects/Phys";
 import {Player} from "./Objects/Player";
 import {Tower} from "./Objects/Tower";
+import {TowerDeath} from "./Objects/TowerDeath";
+import {TrickyPlate} from "./Objects/TrickyPlate";
 
 export let LevelNames = [
   "levels/game.tmx",
   "levels/level1.tmx",
+  "levels/level2.tmx",
+  "levels/level3.tmx",
+  "levels/level4.tmx",
   "levels/menu.tmx",
   "levels/tileset.tsx",
 ];import {Aligner} from "./Neu/BaseObjects/Aligner";
@@ -35,12 +43,15 @@ import {Tooltip} from "./Neu/BaseObjects/Tooltip";
 import {TrainEffect} from "./Neu/BaseObjects/TrainEffect";
 
 export let ObjectNames = {
+  ActiveCellObject :ActiveCellObject,
   Background :Background,
   BackgroundFar :BackgroundFar,
   Candle :Candle,
+  CellObject :CellObject,
   ChainCreator :ChainCreator,
   ChestParticles :ChestParticles,
   DarkParticleSystem :DarkParticleSystem,
+  DeathPoint :DeathPoint,
   Exit :Exit,
   FogParticleSystem :FogParticleSystem,
   Lighting2 :Lighting2,
@@ -50,6 +61,8 @@ export let ObjectNames = {
   Phys :Phys,
   Player :Player,
   Tower :Tower,
+  TowerDeath :TowerDeath,
+  TrickyPlate :TrickyPlate,
   Aligner :Aligner,
   BaseParticleSystem :BaseParticleSystem,
   Button :Button,

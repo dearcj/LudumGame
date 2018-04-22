@@ -11,6 +11,7 @@ import RopePoint = PIXI.heaven.mesh.RopePoint;
 import {TextParticle} from "../Neu/BaseObjects/TextParticle";
 import {Bounce, Elastic, Linear, Power2, Power3, Power4, TweenMax} from "../Neu/Application";
 import DisplayObject = PIXI.DisplayObject;
+import {TOWER_EASE} from "../Objects/Tower";
 
 export class ProgramAnimations {
 
@@ -836,14 +837,15 @@ export class ProgramAnimations {
 
     AffixDestroy(affixGfx: PIXI.heaven.Sprite) {
         let time = 1;
-        let mskSprite = _.cs("maskDestroy.png", affixGfx);
+        let mskSprite = _.cs("maskDestroy", affixGfx);
         mskSprite.color.setDark(1, 1, 1);
-        mskSprite.x = 15;
+        mskSprite.x = 30;
         mskSprite.scale.set(7);
         affixGfx.x += 5 / 2;
         TweenMax.to(affixGfx, 0.08, {x: affixGfx.x + 5, yoyo: true, repeat: 8});
-        TweenMax.to(mskSprite.scale, 1.3*time, {ease: Power2.easeIn, x: 0.0000001, y: 0.0000001});
-        TweenMax.to(mskSprite, 1.3*time, {y: 560, ease: Power2.easeIn});
+        TweenMax.to(affixGfx.scale, 1.3*time, {y: 1.2, ease: TOWER_EASE.easeOut});
+        TweenMax.to(mskSprite.scale, 0.8*time, {ease: TOWER_EASE.easeOut, x: 0.8, y: 0.8});
+        TweenMax.to(mskSprite, 0.8*time, {y: 290, ease: TOWER_EASE.easeOut});
         affixGfx.mask = mskSprite;
     }
 }

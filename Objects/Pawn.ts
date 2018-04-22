@@ -42,9 +42,7 @@ export class Pawn extends Monster {
                 _.game.occupy(pm, this);
                 TweenMax.to(this, 0.2, {x: cp[0], y: cp[1]});
                 console.log("pawn have a move");
-                _.game.anim.do(() => {
-
-                }, 0.1);
+                _.game.anim.block(0.15);
                 return true;
             }
             return false;
@@ -96,6 +94,7 @@ export class Pawn extends Monster {
 
                     _.game.player.wait(0.1).call(() => {
                         _.game.player.hitAnim();
+
                     }).apply();
                     _.game.player.takeDamage(1);
                     return true;

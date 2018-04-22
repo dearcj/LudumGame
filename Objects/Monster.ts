@@ -1,15 +1,17 @@
 import {O} from "../Neu/BaseObjects/O";
-import {CellObject} from "./Player";
 import {_} from "../main";
+import {TweenMax} from "../Neu/Application";
+import {ActiveCellObject} from "./ActiveCellObject";
 
 
 
-export class Monster extends CellObject {
+export class Monster extends ActiveCellObject {
     public dead: boolean = false;
-
     die() {
-        //O.rp(this.gfx);
         //this.gfx.parent.setChildIndex(this.gfx, 0);
+        //O.rp(this.gfx);
+        TweenMax.to(this, 0.3, {y: this.y + 3});
+        TweenMax.to(this.gfx.scale, 0.3, {x: 0.8, y: 0.7});
         _.pa.DamageTint(this, 0.3);
         this.wait(0.3).kill().apply();
         this.dead = true;

@@ -36,8 +36,8 @@ define(["require", "exports", "../Neu/Math", "../main", "../Neu/BaseObjects/Base
             var po = {
                 alpha: 1,
                 av: 0,
-                baseScaleX: baseScaleX,
-                baseScaleY: baseScaleY,
+                baseScaleX: 2 * baseScaleX,
+                baseScaleY: 2 * baseScaleY,
                 v: [0, 0],
                 lifeTime: 20 + 22 * Math.random(),
                 x: p.x,
@@ -61,10 +61,10 @@ define(["require", "exports", "../Neu/Math", "../main", "../Neu/BaseObjects/Base
                 _this.addParticle(_this.pos[0] + Math.random() * main_1._.SCR_WIDTH, _this.pos[1] + main_1._.screenCenterOffset[1] + 50 + fixy);
             };
             this.setInterval(function () {
-                addPart();
+                addPart(Math.random() * 1200);
             }, 0.8);
             for (var x = 0; x < 50; x++) {
-                addPart(Math.random() * 700);
+                addPart(Math.random() * 1200);
             }
             this.includeWind = true;
             for (var x = 0; x < 30; x++) {
@@ -113,8 +113,8 @@ define(["require", "exports", "../Neu/Math", "../main", "../Neu/BaseObjects/Base
             }
             else
                 p.gotoAndStop(0);
-            if (p.lifeTime < 0.5) {
-                pobj.alpha = pobj.lifeTime / 0.5;
+            if (p.lifeTime < 0.1) {
+                pobj.alpha = pobj.lifeTime / 0.1;
             }
             p.alpha = pobj.alpha;
             p.scale.x = pobj.baseScaleX * (1 + dx * 0.3) * this.partScale[0];
