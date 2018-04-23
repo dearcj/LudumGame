@@ -20,9 +20,7 @@ import {DeathPoint} from "../Objects/DeathPoint";
 import {TowerDeath} from "../Objects/TowerDeath";
 
 
-let url = new URL(window.location.href);
-let lev = url.searchParams.get("lev");
-const START_LEVEL = lev ? lev : 1;
+const START_LEVEL: number = 1;
 
 export type MapCell = {
     x: number,
@@ -128,12 +126,17 @@ export class Game extends Stage {
         this.moves = 0;
         Light.POWER = 1;
         super.onShow();
-        this.loadLevel(LevOrder[this.level - 1]);
+        let lev = LevOrder[this.level - 1];
+
+        let url = new URL(window.location.href);
+        let levstr = url.searchParams.get("lev");
+        if (levstr) lev = levstr;
+        this.loadLevel(lev);
         let aoi = _.sm.findOne("areaofinterest");
         this.aoiLR = [aoi.pos[0] - aoi.width / 2, aoi.pos[1] - aoi.height / 2];
         this.aoiWH = [aoi.width, aoi.height];
         Lighting2.POWER= 1;
-        if (this.level == 2) {
+        if (lev == "level3") {
             _.sm.main.filters = [new ColorGradingShader('atlas/allluts.png', 1)];
         } else {
             _.sm.main.filters = [];//[new ColorGradingShader('atlas/allluts.png', 0)];

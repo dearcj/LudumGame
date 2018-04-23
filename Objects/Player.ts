@@ -207,13 +207,20 @@ export class Player extends ActiveCellObject {
     }
 
     private shakeNearbyTiles(res: O[],cx : number, cy: number) {
-        for (let dx = -3; dx <= 3; dx++) {
-            for (let dy = -3; dy <= 3; dy++) {
+        for (let dx = -2; dx <= 2; dx++) {
+            for (let dy = -2; dy <= 2; dy++) {
 
                 for (let j of res) {
                     if (j.tileColRow[0] == cx + dx &&
                         j.tileColRow[1] == cy + dy){
-                        TweenMax.to(j, 0.05, {x: j.x + dx, y: j.y + 2, yoyo: true, repeat: 1})
+                            if (_.game.inField(cx + dx, cy + dy)) {
+                                if (_.game.getCell([cx + dx, cy + dy]).isWall) continue;
+                                _.killTweensOf(j);
+                                j.gfx.skew.x = 0;
+                                j.gfx.skew.y = 0;
+                                TweenMax.to(j, 0.15, {
+                                    y: j.y + 5 , yoyo: true, repeat: 1})
+                            }
                     }
                 }
             }

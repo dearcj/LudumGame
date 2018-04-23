@@ -183,13 +183,22 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
             return 0.7;
         };
         Player.prototype.shakeNearbyTiles = function (res, cx, cy) {
-            for (var dx = -3; dx <= 3; dx++) {
-                for (var dy = -3; dy <= 3; dy++) {
+            for (var dx = -2; dx <= 2; dx++) {
+                for (var dy = -2; dy <= 2; dy++) {
                     for (var _i = 0, res_2 = res; _i < res_2.length; _i++) {
                         var j = res_2[_i];
                         if (j.tileColRow[0] == cx + dx &&
                             j.tileColRow[1] == cy + dy) {
-                            Application_1.TweenMax.to(j, 0.05, { x: j.x + dx, y: j.y + 2, yoyo: true, repeat: 1 });
+                            if (main_1._.game.inField(cx + dx, cy + dy)) {
+                                if (main_1._.game.getCell([cx + dx, cy + dy]).isWall)
+                                    continue;
+                                main_1._.killTweensOf(j);
+                                j.gfx.skew.x = 0;
+                                j.gfx.skew.y = 0;
+                                Application_1.TweenMax.to(j, 0.15, {
+                                    y: j.y + 5, yoyo: true, repeat: 1
+                                });
+                            }
                         }
                     }
                 }

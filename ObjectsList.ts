@@ -19,7 +19,16 @@ import {Player} from "./Objects/Player";
 import {Tower} from "./Objects/Tower";
 import {TowerDeath} from "./Objects/TowerDeath";
 import {TrickyPlate} from "./Objects/TrickyPlate";
-import {Aligner} from "./Neu/BaseObjects/Aligner";
+
+export let LevelNames = [
+  "levels/game.tmx",
+  "levels/level1.tmx",
+  "levels/level2.tmx",
+  "levels/level3.tmx",
+  "levels/level4.tmx",
+  "levels/menu.tmx",
+  "levels/tileset.tsx",
+];import {Aligner} from "./Neu/BaseObjects/Aligner";
 import {BaseParticleSystem} from "./Neu/BaseObjects/BaseParticleSystem";
 import {Button} from "./Neu/BaseObjects/Button";
 import {Camera} from "./Neu/BaseObjects/Camera";
@@ -71,12 +80,3 @@ export let ObjectNames = {
   Tooltip :Tooltip,
   TrainEffect :TrainEffect,
 };
-export let LevelNames = [
-  "levels/game.tmx",
-  "levels/level1.tmx",
-  "levels/level2.tmx",
-  "levels/level3.tmx",
-  "levels/level4.tmx",
-  "levels/menu.tmx",
-  "levels/tileset.tsx",
-];
