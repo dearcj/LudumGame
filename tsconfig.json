@@ -2,15 +2,20 @@
   "compilerOptions": {
     "module": "amd",
     "target": "es5",
-    "allowJs": true
+    "allowJs": true,
+    "outFile": "bundle/bundle.js"
   },
     "exclude": [
+      "./lib/",
+      "./lib",
+      "./lib/*",
+      "genObjectList.js",
+      "./genObjectList.js",
       "./levels/",
       "levels/",
-      //      "./node_modules",
       "../../../../../pkg"
+
   ],
-  "baseUrl": "./node_modules/",
   "paths": {
   }
 

@@ -10,7 +10,7 @@ import {AnimClip} from "./Neu/PIXIPlugins/AnimClip";
 import {Engine, Render, Runner} from "./lib/matter";
 import {ResourceManager} from "./Neu/ResourceManager";
 import {LevelNames} from "./ObjectsList";
-import './node_modules/pixi-heaven/dist/pixi-heaven.js';
+import './lib/pixi-heaven.js';
 import {
     CAMERA_DEBUG,
     DEBUG_EFFECTS,
@@ -21,7 +21,6 @@ import {
     SKIP_MENU
 } from "./ClientSettings";
 import {Loader} from "./Neu/Loader";
-import "./node_modules/fmath/src/FMath.js"
 import {ColorGradingShader} from "./shaders/ColorGradingShader";
 import {Menu} from "./Stages/Menu";
 import {Game, MapCell} from "./Stages/Game";

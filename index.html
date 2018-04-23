@@ -17,8 +17,14 @@
     <script src="lib/decomp.min.js" type="text/javascript"></script>
     <script src="lib/matter.js" type="text/javascript"></script>
     
-    <script data-main="./main.js" src="lib/require.js"></script>
+ <!--   <script data-main="./main.js" src="lib/require.js"></script> -->
+
+    <script src="lib/require.js"></script>
+    <script src="bundle/bundle.js"></script>
     <script>
+        requirejs(['main'], function(foo) {});
+
+
 
     window.startTime = new Date();
 
