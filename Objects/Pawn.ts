@@ -50,6 +50,9 @@ export class Pawn extends Monster {
     }
 
     init(props: any): any {
+        this.setMyCell_noOCCUPY();
+        _.game.occupy(this.cell, this);
+
         _.rm.requestSpine("Slime", (data)=> {
             this.gfx = new PIXI.heaven.spine.Spine(data);
 
@@ -58,14 +61,12 @@ export class Pawn extends Monster {
             TweenMax.to(this.gfx.scale, 0.5, {x: 0.13, y: 0.13});
             this.gfx.state.setAnimation(0, "Idle", true);
             this.gfx.pivot.y = 1;
-            this.process();
             this.layer.addChild(this.gfx);
             this.alignToCell();
             super.init(props);
+            this.process();
         });
 
-        this.setMyCell_noOCCUPY();
-        _.game.occupy(this.cell, this);
     }
 
 

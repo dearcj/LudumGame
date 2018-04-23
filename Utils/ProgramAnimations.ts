@@ -844,8 +844,8 @@ export class ProgramAnimations {
         affixGfx.x += 5 / 2;
         TweenMax.to(affixGfx, 0.08, {x: affixGfx.x + 5, yoyo: true, repeat: 8});
         TweenMax.to(affixGfx.scale, 1.3*time, {y: 1.2, ease: TOWER_EASE.easeOut});
-        TweenMax.to(mskSprite.scale, 0.8*time, {ease: TOWER_EASE.easeOut, x: 0.8, y: 0.8});
-        TweenMax.to(mskSprite, 0.8*time, {y: 290, ease: TOWER_EASE.easeOut});
+        TweenMax.to(mskSprite.scale, 1.1*time, {ease: TOWER_EASE.easeOut, x: 0.8, y: 0.8});
+        TweenMax.to(mskSprite, 1.1*time, {y: 290, ease: TOWER_EASE.easeOut});
         affixGfx.mask = mskSprite;
     }
 }

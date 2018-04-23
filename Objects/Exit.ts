@@ -11,7 +11,7 @@ export class Exit extends CellObject {
         this.light = new Light([this.x, this.y ]);
         this.light.gfx = _.cs("lightness", _.game.layers['lighting']);
         this.light.init({candle: true});
-
+        this.layer = _.game.layers['tilebg'];
         _.rm.requestSpine("Teleport", (data)=>{
             this.gfx = new PIXI.heaven.spine.Spine(data);
             this.gfx.scale.set(0.45);

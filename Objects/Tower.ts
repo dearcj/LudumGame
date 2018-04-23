@@ -4,6 +4,7 @@ import {CustomEase, Elastic, Power2, Power3, TweenMax} from "../Neu/Application"
 import {m, Vec2} from "../Neu/Math";
 import {MapCell} from "../Stages/Game";
 import {ActiveCellObject} from "./ActiveCellObject";
+import {DEF_EVENTS} from "../Neu/BaseObjects/O";
 export const TOWER_EASE = (<any>window).CustomEase.create("custom",
     "M0,0,C0.126,0.382,0.351,0.72,0.5,0.878,0.682,1.07,0.818,1,1,1"
 );
@@ -20,7 +21,7 @@ export class Tower extends Monster {
     }
 
     init(props: any): any {
-        _.rm.requestSpine("Spider_final", (data)=> {
+        _.rm.requestSpine(props.red ? "Spider_Red":"Spider_final", (data)=> {
             this.gfx = new PIXI.heaven.spine.Spine(data);
             let l = Math.random();
             if (l < 0.3) {
@@ -37,6 +38,7 @@ export class Tower extends Monster {
             this.setMyCell_noOCCUPY();
             this.alignToCell();
             super.init(props);
+            this.emmit("loaded");
         });
 
         this.setMyCell_noOCCUPY();

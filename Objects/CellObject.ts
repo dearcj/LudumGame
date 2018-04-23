@@ -35,6 +35,6 @@ export class CellObject extends O {
             this.pos[0] = cp[0];
             this.pos[1] = cp[1];
         }
-        _.sm.camera.updateTransform(this, this.gfx);
+        this.process();
     }
 }

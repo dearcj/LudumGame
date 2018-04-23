@@ -29,7 +29,7 @@ define(["require", "exports", "./Monster", "../main", "../Neu/Application", "../
         };
         Tower.prototype.init = function (props) {
             var _this = this;
-            main_1._.rm.requestSpine("Spider_final", function (data) {
+            main_1._.rm.requestSpine(props.red ? "Spider_Red" : "Spider_final", function (data) {
                 _this.gfx = new PIXI.heaven.spine.Spine(data);
                 var l = Math.random();
                 if (l < 0.3) {
@@ -46,6 +46,7 @@ define(["require", "exports", "./Monster", "../main", "../Neu/Application", "../
                 _this.setMyCell_noOCCUPY();
                 _this.alignToCell();
                 _super.prototype.init.call(_this, props);
+                _this.emmit("loaded");
             });
             this.setMyCell_noOCCUPY();
             main_1._.game.occupy(this.cell, this);

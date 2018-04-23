@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="tileset" tilewidth="1280" tileheight="720" tilecount="54" columns="0">
+<tileset name="tileset" tilewidth="1661" tileheight="720" tilecount="58" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="4">
   <image width="128" height="128" source="../atlasres/cellblack.png"/>
@@ -162,5 +162,17 @@
  </tile>
  <tile id="58">
   <image width="594" height="476" source="../atlasres/Mare.png"/>
+ </tile>
+ <tile id="59">
+  <image width="592" height="435" source="../atlasres/Logo.png"/>
+ </tile>
+ <tile id="60">
+  <image width="295" height="144" source="../atlasres/Play.png"/>
+ </tile>
+ <tile id="61">
+  <image width="295" height="144" source="../atlasres/Start.png"/>
+ </tile>
+ <tile id="62">
+  <image width="1661" height="126" source="../atlasres/Text.png"/>
  </tile>
 </tileset>

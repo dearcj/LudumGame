@@ -22,6 +22,7 @@ define(["require", "exports", "../Neu/BaseObjects/O", "../main", "./CellObject",
             this.light = new Light_1.Light([this.x, this.y]);
             this.light.gfx = main_1._.cs("lightness", main_1._.game.layers['lighting']);
             this.light.init({ candle: true });
+            this.layer = main_1._.game.layers['tilebg'];
             main_1._.rm.requestSpine("Teleport", function (data) {
                 _this.gfx = new PIXI.heaven.spine.Spine(data);
                 _this.gfx.scale.set(0.45);

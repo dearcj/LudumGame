@@ -16,19 +16,11 @@ import {ParticleSystem} from "./Objects/ParticleSystem";
 import {Pawn} from "./Objects/Pawn";
 import {Phys} from "./Objects/Phys";
 import {Player} from "./Objects/Player";
+import {TextNotification} from "./Objects/TextNotification";
 import {Tower} from "./Objects/Tower";
 import {TowerDeath} from "./Objects/TowerDeath";
 import {TrickyPlate} from "./Objects/TrickyPlate";
-
-export let LevelNames = [
-  "levels/game.tmx",
-  "levels/level1.tmx",
-  "levels/level2.tmx",
-  "levels/level3.tmx",
-  "levels/level4.tmx",
-  "levels/menu.tmx",
-  "levels/tileset.tsx",
-];import {Aligner} from "./Neu/BaseObjects/Aligner";
+import {Aligner} from "./Neu/BaseObjects/Aligner";
 import {BaseParticleSystem} from "./Neu/BaseObjects/BaseParticleSystem";
 import {Button} from "./Neu/BaseObjects/Button";
 import {Camera} from "./Neu/BaseObjects/Camera";
@@ -62,6 +54,7 @@ export let ObjectNames = {
   Pawn :Pawn,
   Phys :Phys,
   Player :Player,
+  TextNotification :TextNotification,
   Tower :Tower,
   TowerDeath :TowerDeath,
   TrickyPlate :TrickyPlate,
@@ -80,3 +73,16 @@ export let ObjectNames = {
   Tooltip :Tooltip,
   TrainEffect :TrainEffect,
 };
+export let LevelNames = [
+  "levels/game.tmx",
+  "levels/level1.tmx",
+  "levels/level2.tmx",
+  "levels/level3.tmx",
+  "levels/level4.tmx",
+  "levels/level5.tmx",
+  "levels/level_a1.tmx",
+  "levels/level_a2.tmx",
+  "levels/level_a3.tmx",
+  "levels/menu.tmx",
+  "levels/tileset.tsx",
+];

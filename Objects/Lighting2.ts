@@ -50,7 +50,7 @@ export class Lighting2 extends Lighting {
             p.scale.x -= p.scale.x;
         }
 
-        let tw = TweenMax.to(p, 4, {alpha: 0.3 ,x:p.x + dir*Math.random()*45,  yoyo: true, repeat: 2, onComplete: ()=>{
+        let tw = TweenMax.to(p, 4, {alpha: 0.3 ,x:p.x + dir*Math.random()*45,  yoyo: true, repeat: 1, onComplete: ()=>{
             this.removeParticle(p);
         }});
         tw.progress(Math.random());

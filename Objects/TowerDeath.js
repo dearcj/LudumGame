@@ -17,14 +17,16 @@ define(["require", "exports", "./Tower", "../main", "../Neu/Application"], funct
             return _super !== null && _super.apply(this, arguments) || this;
         }
         TowerDeath.prototype.init = function (p) {
+            var _this = this;
             this.layer = main_1._.sm.stage.layers['main'];
             _super.prototype.init.call(this, p);
-            this.gfx.color.setLight(1, 0.8, 0.8);
-            this.gfx.color.setDark(0.3, 0, 0);
-            var prev = this.gfx.scale.x;
-            this.gfx.scale.x = 0;
-            this.gfx.scale.y = 0;
-            Application_1.TweenMax.to(this.gfx.scale, 0.5, { x: prev, y: prev, ease: Application_1.Power1.easeOuts });
+            this.on("loaded").call(function () {
+                _this.alignToCell();
+                var prev = _this.gfx.scale.x;
+                _this.gfx.scale.x = 0;
+                _this.gfx.scale.y = 0;
+                Application_1.TweenMax.to(_this.gfx.scale, 0.5, { x: prev, y: prev, ease: Application_1.Power1.easeOuts });
+            }).apply();
         };
         return TowerDeath;
     }(Tower_1.Tower));

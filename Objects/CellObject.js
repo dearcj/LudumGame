@@ -39,7 +39,7 @@ define(["require", "exports", "../Neu/BaseObjects/O", "../main"], function (requ
                 this.pos[0] = cp[0];
                 this.pos[1] = cp[1];
             }
-            main_1._.sm.camera.updateTransform(this, this.gfx);
+            this.process();
         };
         return CellObject;
     }(O_1.O));

@@ -50,13 +50,14 @@ const GLOBAL_ASSETS = [
     ///////////////////////////////////////////
     // Atlases
     ///////////////////////////////////////////
-    'atlas/allluts.png',
+    'res/color.png',
     'atlas/atlas.json',
 
     ///////////////////////////////////////////
     // Fonts
     ///////////////////////////////////////////
     'fonts/Berkshire-export.xml',
+    'fonts/NanumGothicCanvas-export.xml',
 
 
     ///////////////////////////////////////////
@@ -243,14 +244,19 @@ export class Main extends Application {
 
         this.rm = new ResourceManager();
 
-        this.rm.requestSpine("Teleport", (data)=>{});
-        this.rm.requestSpine("Slime", (data)=>{});
-        this.rm.requestSpine("Spider_final", (data)=>{});
-        this.rm.requestSpine("Teleport", (data)=>{});
+
         this.rm.loadAssets(GLOBAL_ASSETS.concat(LevelNames), (loader: any, evt: any) => {
             this.drawPreloaderProgress(loader.progress);
             this.assetsLoaded++;
         }, onAssetsLoaded);
+
+
+        this.rm.requestSpine("Teleport", (data)=>{});
+        this.rm.requestSpine("Slime", (data)=>{});
+        this.rm.requestSpine("Spider_final", (data)=>{});
+        this.rm.requestSpine("Teleport", (data)=>{});
+        this.rm.requestSpine("Blood", (data)=>{});
+        this.rm.requestSpine("Dirt", (data)=>{});
 
         this.sound = new Sound();
         this.sound.load(GLOBAL_MUSIC_ASSETS, GLOBAL_SOUND_ASSETS, onAssetsLoaded);

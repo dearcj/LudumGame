@@ -48,9 +48,21 @@ export class Game extends Stage {
     private maxMoves: number = 0;
     private movetimer: TextBox;
 
+    gamewin() {
+        let spr = _.cs("win");
+        _.sm.gui.addChild(spr);
+        spr.x = _.SCR_WIDTH / 2;
+        spr.y = _.SCR_HEIGHT / 2;
+        this.lighting.tweenColorTo([255, 40, 20, 20], [255, 0, 0, 0]);
+    }
+
     next() {
-        this.level++;
-        _.sm.openStage(_.game);
+        if (this.level < 3) {
+            this.level++;
+            _.sm.openStage(_.game);
+        } else {
+            this.gamewin();
+        }
     }
 
 
@@ -77,7 +89,7 @@ export class Game extends Stage {
     }
 
     makeZOrder() {
-        let list = _.sm.findByType(ActiveCellObject);
+        let list = _.sm.collectObjectsOnLayer(this.layers['main']);
         for (let l of list) {
             if (l.gfx) {
                 l.layer = l.gfx.parent;
@@ -86,7 +98,7 @@ export class Game extends Stage {
         }
 
         list.sort((a, b: ActiveCellObject) => {
-            return a.y - b.y
+            return a.gfx.y - b.gfx.y
         });
 
         for (let l of list) {
@@ -136,11 +148,18 @@ export class Game extends Stage {
         this.aoiLR = [aoi.pos[0] - aoi.width / 2, aoi.pos[1] - aoi.height / 2];
         this.aoiWH = [aoi.width, aoi.height];
         Lighting2.POWER= 1;
-        if (lev == "level3") {
-            _.sm.main.filters = [new ColorGradingShader('atlas/allluts.png', 1)];
-        } else {
-            _.sm.main.filters = [];//[new ColorGradingShader('atlas/allluts.png', 0)];
+        switch (lev) {
+            case "level3":
+                _.sm.main.filters = [new ColorGradingShader('res/color.png', 0)];
+                break;
+            case "level4":
+                _.sm.main.filters = [new ColorGradingShader('res/color.png', 2)];
+                break;
+
+            default:
+                _.sm.main.filters = []
         }
+
         TweenMax.to(_.sm.camera, 1.5, {delay: .2, zoom: 0.65, ease: Power1.easeOut});
         //_.sm.camera.zoom = 0.65;
         this.player = _.sm.findByType(Player)[0];
@@ -154,7 +173,7 @@ export class Game extends Stage {
             this.lighting.envColor = [255, 250, 240, 230];
             this.lighting.envColorDark = [15, 0, 0, 0];
             this.lighting.redraw();
-
+        //this.gamewin();
     }
 
     process() {
@@ -294,7 +313,7 @@ export class Game extends Stage {
             this.updateMoves();
 
             _.game.anim.block(time);
-            this.player.wait(time - 0.4).call(()=>{
+            this.player.wait(time - 0.15).call(()=>{
                 let ocp = this.map[x][y].OccupiedBy;
                 if (ocp && ocp instanceof Monster) {
                     ocp.die();
@@ -373,10 +392,9 @@ export class Game extends Stage {
         for (let x of deathPoints) {
             if (x.cell.OccupiedBy == null) {
                 let deathTower = new TowerDeath([x.x, x.y]);
-                deathTower.init({});
+                deathTower.init({red: true});
                 deathTower.reactOnMove = true;
                 this.occupy(x.cell, deathTower);
-                deathTower.alignToCell();
             }
         }
     }
@@ -384,7 +402,8 @@ export class Game extends Stage {
     private setDarkness() {
         Light.POWER = 0.75;
         Lighting2.POWER = 2;
-        this.lighting.tweenColorTo([255, 220, 180, 180], [65, 0, 0, 0]);
+        this.lighting.tweenColorTo([255, 200, 140, 140], [255, 0, 0, 0]);
+        this.lighting.envColorDark = [255, 100., 0., 0];
         this.lighting.redraw();
     }
 }

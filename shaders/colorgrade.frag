@@ -11,7 +11,7 @@
   #define COLORS 32.0
   #define WIDTH 1024.0
   #define HEIGHT 32.0
-  #define TOTALTEXTURES 2.0
+  #define TOTALTEXTURES 3.0
 
 
 void main() {

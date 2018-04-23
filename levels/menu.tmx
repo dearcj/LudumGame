@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#556a28" nextobjectid="32">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#556a28" nextobjectid="48">
  <tileset firstgid="1" source="tileset.tsx"/>
- <objectgroup name="gui">
-  <object id="25" gid="18" x="-380" y="1084" width="2178.31" height="1196">
+ <objectgroup name="bg">
+  <object id="47" gid="18" x="-247" y="1023" width="2178.31" height="1196">
    <properties>
     <property name="Red" type="int" value="172"/>
     <property name="color" type="color" value="#ff000000"/>
@@ -10,17 +10,19 @@
   </object>
  </objectgroup>
  <objectgroup name="gui">
-  <object id="28" gid="58" x="101" y="325" width="1097.52" height="332"/>
-  <object id="29" gid="57" x="278" y="674" width="711.111" height="360"/>
+  <object id="28" name="tut1" gid="58" x="90" y="339" width="1097.52" height="332"/>
+  <object id="29" name="tut2" gid="57" x="271" y="668" width="711.111" height="360"/>
  </objectgroup>
- <objectgroup name="gui">
-  <object id="30" name="startbtn" type="Button" gid="56" x="492" y="701" width="247.652" height="89">
-   <properties>
-    <property name="text" value=""/>
-   </properties>
-  </object>
+ <objectgroup name="gui"/>
+ <objectgroup name="gui2">
+  <object id="42" name="playbtn" type="Button" gid="61" x="527" y="553" width="223.299" height="109"/>
+  <object id="43" name="startbtn" type="Button" gid="62" x="-225" y="708" width="213.056" height="104"/>
  </objectgroup>
- <objectgroup color="#212420" name="utils" locked="1" opacity="0.2">
+ <objectgroup name="part1">
+  <object id="45" gid="63" x="173" y="420" width="962.325" height="73"/>
+  <object id="46" gid="60" x="464" y="328" width="371.531" height="273"/>
+ </objectgroup>
+ <objectgroup color="#212420" name="utils" opacity="0.2">
   <object id="18" x="1" y="2" width="6" height="720"/>
   <object id="20" x="1274" y="2" width="6" height="720"/>
   <object id="21" x="1280" y="713" width="6.27778" height="1280" rotation="-270"/>

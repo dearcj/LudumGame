@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", "./ActiveCellObject", "./Tower", "./JumpRock"], function (require, exports, main_1, Math_1, Application_1, ActiveCellObject_1, Tower_1, JumpRock_1) {
+define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", "./ActiveCellObject", "./Tower", "./JumpRock", "../Neu/BaseObjects/O"], function (require, exports, main_1, Math_1, Application_1, ActiveCellObject_1, Tower_1, JumpRock_1, O_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Player = /** @class */ (function (_super) {
@@ -26,10 +26,7 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
         };
         Player.prototype.process = function () {
             _super.prototype.process.call(this);
-            if (this.light) {
-                this.light.x = this.x;
-                this.light.y = this.y + 34;
-            }
+            this.procLight();
         };
         Player.prototype.init = function (props) {
             var _this = this;
@@ -50,8 +47,15 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
                 var prevY = _this.y;
                 _this.gfx.alpha = 0;
                 _this.y -= 500;
-                Application_1.TweenMax.to(_this, 0.8, { y: prevY, ease: Application_1.Power1.easeIn });
+                _this.a = -0.25;
+                Application_1.TweenMax.to(_this, 0.8, { a: 0, y: prevY, ease: Application_1.Power1.easeIn });
                 Application_1.TweenMax.to(_this.gfx, 1, { alpha: 1, ease: Application_1.Power1.easeIn });
+                _this.wait(0.65).call(function () {
+                    _this.dirtFX(_this.cell.x, _this.cell.y);
+                }).apply();
+                _this.wait(0.73).call(function () {
+                    _this.shakeNearbyTiles(main_1._.sm.collectObjectsOnLayer(main_1._.game.layers['tilebg']), _this.cell.x, _this.cell.y);
+                }).apply();
                 _this.light = main_1._.sm.findOne("light1");
                 //create gfx here
                 var prevScaleX = _this.light.gfx.scale.x;
@@ -119,6 +123,8 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
             var animateTilesUnder = function (cx, cy, delay) {
                 for (var _i = 0, res_1 = res; _i < res_1.length; _i++) {
                     var x = res_1[_i];
+                    if (!x.tileColRow)
+                        continue;
                     if (x.tileColRow[0] == cx && x.tileColRow[1] == cy) {
                         //x.gfx.scale.x = 0.5;
                         //x.gfx.scale.y = 0.5;
@@ -145,7 +151,8 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
                 }
                 _this.wait(delay).call(function () {
                     //this.shakeNearbyTiles(res, cx, cy);
-                    _this.rockJumps(cx, cy);
+                    _this.dirtFX(cx, cy);
+                    // this.rockJumps(cx, cy);
                 }).apply();
             };
             var cx = oldX;
@@ -185,23 +192,41 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
             return 0.7;
         };
         Player.prototype.shakeNearbyTiles = function (res, cx, cy) {
-            for (var dx = -2; dx <= 2; dx++) {
-                for (var dy = -2; dy <= 2; dy++) {
-                    for (var _i = 0, res_2 = res; _i < res_2.length; _i++) {
-                        var j = res_2[_i];
-                        if (j.tileColRow[0] == cx + dx &&
-                            j.tileColRow[1] == cy + dy) {
-                            if (main_1._.game.inField(cx + dx, cy + dy)) {
-                                if (main_1._.game.getCell([cx + dx, cy + dy]).isWall)
-                                    continue;
-                                main_1._.killTweensOf(j);
-                                Application_1.TweenMax.to(j, 0.15, {
-                                    y: j.y + 2, yoyo: true, repeat: 1
-                                });
-                            }
-                        }
+            for (var _i = 0, res_2 = res; _i < res_2.length; _i++) {
+                var j = res_2[_i];
+                if (!j.tileColRow)
+                    continue;
+                var dx = cx - j.tileColRow[0];
+                var dy = cy - j.tileColRow[1];
+                if (Math.abs(dx) <= 3 && Math.abs(dy) <= 3) {
+                    if (main_1._.game.inField(j.tileColRow[0], j.tileColRow[1])) {
+                        //  if (_.game.getCell([j.tileColRow[0], j.tileColRow[1]]).isWall) continue;
+                        //_.killTweensOf(j);
+                        var power = 0;
+                        if (dx != 0 && dy != 0)
+                            power = 3 / (Math.max(Math.abs(dx), Math.abs(dy)));
+                        // j.gfx.color.setDark(1., 0., 0.,);
+                        Application_1.TweenMax.to(j, 0.1, { delay: 0.036 * (2 * power),
+                            y: j.y + 12, yoyo: true, repeat: 1 });
                     }
                 }
+            }
+        };
+        Player.prototype.dirtFX = function (cx, cy) {
+            main_1._.rm.requestSpine('Dirt', function (data) {
+                var o = new O_1.O(main_1._.game.getCellPoint(cx, cy), new PIXI.heaven.spine.Spine(data));
+                main_1._.game.layers['tilebg'].addChild(o.gfx);
+                o.gfx.animationSpeed = 2;
+                o.gfx.state.setAnimation(0, "animation", false);
+                o.gfx.alpha = 0.6;
+                o.gfx.scale.set(0.5);
+                o.wait(1.5).kill().apply();
+            });
+        };
+        Player.prototype.procLight = function () {
+            if (this.light) {
+                this.light.x = this.x;
+                this.light.y = this.y + 34;
             }
         };
         return Player;

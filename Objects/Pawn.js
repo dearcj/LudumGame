@@ -57,19 +57,19 @@ define(["require", "exports", "./Monster", "../main", "../Neu/Math", "../Neu/App
         };
         Pawn.prototype.init = function (props) {
             var _this = this;
+            this.setMyCell_noOCCUPY();
+            main_1._.game.occupy(this.cell, this);
             main_1._.rm.requestSpine("Slime", function (data) {
                 _this.gfx = new PIXI.heaven.spine.Spine(data);
                 _this.gfx.scale.set(0.01);
                 Application_1.TweenMax.to(_this.gfx.scale, 0.5, { x: 0.13, y: 0.13 });
                 _this.gfx.state.setAnimation(0, "Idle", true);
                 _this.gfx.pivot.y = 1;
-                _this.process();
                 _this.layer.addChild(_this.gfx);
                 _this.alignToCell();
                 _super.prototype.init.call(_this, props);
+                _this.process();
             });
-            this.setMyCell_noOCCUPY();
-            main_1._.game.occupy(this.cell, this);
         };
         Pawn.prototype.removeBlocked = function (possible) {
             var res = [];

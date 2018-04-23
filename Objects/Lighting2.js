@@ -56,7 +56,7 @@ define(["require", "exports", "../Neu/BaseObjects/Lighting", "../main", "../Neu/
             if (Math.random() > 0.5) {
                 p.scale.x -= p.scale.x;
             }
-            var tw = Application_1.TweenMax.to(p, 4, { alpha: 0.3, x: p.x + dir * Math.random() * 45, yoyo: true, repeat: 2, onComplete: function () {
+            var tw = Application_1.TweenMax.to(p, 4, { alpha: 0.3, x: p.x + dir * Math.random() * 45, yoyo: true, repeat: 1, onComplete: function () {
                     _this.removeParticle(p);
                 } });
             tw.progress(Math.random());

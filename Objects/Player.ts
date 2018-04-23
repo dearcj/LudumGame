@@ -22,10 +22,7 @@ export class Player extends ActiveCellObject {
 
     process() {
         super.process();
-        if (this.light) {
-            this.light.x = this.x;
-            this.light.y = this.y + 34;
-        }
+        this.procLight();
     }
 
     init(props: any) {
@@ -50,8 +47,17 @@ export class Player extends ActiveCellObject {
             let prevY = this.y;
             this.gfx.alpha = 0;
             this.y -= 500;
-            TweenMax.to(this, 0.8, {y: prevY, ease: Power1.easeIn});
+            this.a = -0.25;
+            TweenMax.to(this, 0.8, {a: 0, y: prevY, ease: Power1.easeIn});
             TweenMax.to(this.gfx, 1, {alpha: 1, ease: Power1.easeIn});
+
+            this.wait(0.65).call(()=>{
+                this.dirtFX(this.cell.x, this.cell.y);
+            }).apply();
+            this.wait(0.73).call(()=>{
+                this.shakeNearbyTiles(_.sm.collectObjectsOnLayer(_.game.layers['tilebg']), this.cell.x, this.cell.y);
+            }).apply();
+
 
             this.light = <Light>_.sm.findOne("light1");
             //create gfx here
@@ -131,8 +137,11 @@ export class Player extends ActiveCellObject {
         let tiles2 = _.sm.collectObjectsOnLayer(_.game.layers['tilebg']);
         let res = tiles1.concat(tiles2);
 
+
+
         let animateTilesUnder = (cx, cy, delay: number) => {
             for (let x of res) {
+                if (!x.tileColRow) continue;
                 if (x.tileColRow[0] == cx && x.tileColRow[1] == cy) {
 
                     //x.gfx.scale.x = 0.5;
@@ -161,8 +170,11 @@ export class Player extends ActiveCellObject {
 
             this.wait(delay).call(()=>{
                 //this.shakeNearbyTiles(res, cx, cy);
-                this.rockJumps(cx, cy);
+                this.dirtFX(cx, cy);
+               // this.rockJumps(cx, cy);
             }).apply();
+
+
         };
 
         let cx = oldX;
@@ -208,21 +220,42 @@ export class Player extends ActiveCellObject {
     }
 
     private shakeNearbyTiles(res: O[],cx : number, cy: number) {
-        for (let dx = -2; dx <= 2; dx++) {
-            for (let dy = -2; dy <= 2; dy++) {
 
                 for (let j of res) {
-                    if (j.tileColRow[0] == cx + dx &&
-                        j.tileColRow[1] == cy + dy){
-                            if (_.game.inField(cx + dx, cy + dy)) {
-                                if (_.game.getCell([cx + dx, cy + dy]).isWall) continue;
-                                _.killTweensOf(j);
-                                TweenMax.to(j, 0.15, {
-                                    y: j.y + 2 , yoyo: true, repeat: 1})
+                    if (!j.tileColRow) continue;
+                    let dx = cx - j.tileColRow[0];
+                    let dy = cy - j.tileColRow[1];
+                    if (Math.abs(dx) <= 3 && Math.abs(dy) <= 3){
+                            if (_.game.inField(j.tileColRow[0], j.tileColRow[1])) {
+                              //  if (_.game.getCell([j.tileColRow[0], j.tileColRow[1]]).isWall) continue;
+                                //_.killTweensOf(j);
+                                let power = 0;
+                                if (dx != 0 && dy != 0)
+                                power = 3 /(Math.max(Math.abs(dx),Math.abs(dy)));
+                              // j.gfx.color.setDark(1., 0., 0.,);
+                                TweenMax.to(j, 0.1, {delay:  0.036*(2*power),
+                                    y: j.y + 12, yoyo: true, repeat: 1})
                             }
                     }
                 }
             }
+
+    private dirtFX(cx, cy: number) {
+        _.rm.requestSpine('Dirt', (data)=>{
+            let o = new O(_.game.getCellPoint(cx, cy), new PIXI.heaven.spine.Spine(data));
+            _.game.layers['tilebg'].addChild(o.gfx);
+            o.gfx.animationSpeed = 2;
+            o.gfx.state.setAnimation(0, "animation", false);
+            o.gfx.alpha = 0.6;
+            o.gfx.scale.set(0.5);
+            o.wait(1.5).kill().apply();
+        });
+    }
+
+    private procLight() {
+        if (this.light) {
+            this.light.x = this.x;
+            this.light.y = this.y + 34;
         }
     }
 }
