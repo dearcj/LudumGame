@@ -120,6 +120,8 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
                 for (var _i = 0, res_1 = res; _i < res_1.length; _i++) {
                     var x = res_1[_i];
                     if (x.tileColRow[0] == cx && x.tileColRow[1] == cy) {
+                        //x.gfx.scale.x = 0.5;
+                        //x.gfx.scale.y = 0.5;
                         Application_1.TweenMax.to(x, 0.15, { delay: delay, y: x.y + 12, yoyo: true, repeat: 1 });
                         Application_1.TweenMax.to(x.gfx.scale, 0.15, { delay: delay, x: 0.96, y: 0.96, yoyo: true, repeat: 1 });
                         var heaven = x.gfx;
@@ -142,7 +144,7 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
                     }
                 }
                 _this.wait(delay).call(function () {
-                    _this.shakeNearbyTiles(res, cx, cy);
+                    //this.shakeNearbyTiles(res, cx, cy);
                     _this.rockJumps(cx, cy);
                 }).apply();
             };
@@ -193,10 +195,8 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
                                 if (main_1._.game.getCell([cx + dx, cy + dy]).isWall)
                                     continue;
                                 main_1._.killTweensOf(j);
-                                j.gfx.skew.x = 0;
-                                j.gfx.skew.y = 0;
                                 Application_1.TweenMax.to(j, 0.15, {
-                                    y: j.y + 5, yoyo: true, repeat: 1
+                                    y: j.y + 2, yoyo: true, repeat: 1
                                 });
                             }
                         }

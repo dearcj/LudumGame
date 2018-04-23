@@ -31,6 +31,7 @@ define(["require", "exports", "../Neu/BaseObjects/Lighting", "../main", "../Neu/
             for (var x = 0; x < 30; x++) {
                 this.addParticle();
             }
+            this.ambient.y += 250;
             this.ambient.scale.x *= 2;
             this.ambient.scale.y *= 2;
             //   this.tween = TweenMax.to(this.ambient.scale, 2, {x: 1.02, y: 1.02, yoyo: true, repeat: -1});
@@ -64,11 +65,9 @@ define(["require", "exports", "../Neu/BaseObjects/Lighting", "../main", "../Neu/
         };
         Lighting2.prototype.removeParticle = function (p) {
             var inx = this.particles.indexOf(p);
-            if (~inx) {
-                this.particles.splice(inx, 1);
-                O_1.O.rp(p);
-                Application_1.TweenMax.killTweensOf(p);
-            }
+            this.particles.splice(inx, 1);
+            O_1.O.rp(p);
+            Application_1.TweenMax.killTweensOf(p);
         };
         Lighting2.POWER = 1;
         return Lighting2;

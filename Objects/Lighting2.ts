@@ -23,6 +23,7 @@ export class Lighting2 extends Lighting {
         for (let x = 0; x < 30; x++) {
             this.addParticle();
         }
+        this.ambient.y += 250;
         this.ambient.scale.x *= 2;
         this.ambient.scale.y *= 2;
      //   this.tween = TweenMax.to(this.ambient.scale, 2, {x: 1.02, y: 1.02, yoyo: true, repeat: -1});
@@ -32,7 +33,7 @@ export class Lighting2 extends Lighting {
         let p = _.cs("fog1");
         p.alpha = 0.;
         p.scale.set(1 + Math.random()*(0.4*Lighting2.POWER) );
-        p.color.setDark(0.1, 0., 0.)
+        p.color.setDark(0.1, 0., 0.);
 
         let delta = 90;
         let dir;
@@ -61,10 +62,8 @@ export class Lighting2 extends Lighting {
 
     private removeParticle(p: PIXI.heaven.Sprite) {
         let inx = this.particles.indexOf(p);
-        if (~inx) {
-            this.particles.splice(inx, 1);
-            O.rp(p);
-            TweenMax.killTweensOf(p);
-        }
+        this.particles.splice(inx, 1);
+        O.rp(p);
+        TweenMax.killTweensOf(p);
     }
 }

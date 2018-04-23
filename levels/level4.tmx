@@ -432,7 +432,7 @@
     <property name="color" type="color" value="#ffe71515"/>
    </properties>
   </object>
-  <object id="156" type="Light" gid="11" x="-630" y="411" width="704.757" height="231">
+  <object id="156" type="Light" gid="11" x="-852" y="513" width="704.757" height="231">
    <properties>
     <property name="candle" type="bool" value="true"/>
     <property name="color" type="color" value="#ffd3bb94"/>

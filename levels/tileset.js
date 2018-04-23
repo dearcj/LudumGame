@@ -1,7 +1,7 @@
  <  ? xml : ;
 version = "1.0";
 encoding = "UTF-8" ?  >
-    <tileset name="tileset" tilewidth="1280" tileheight="720" tilecount="55" columns="0">
+    <tileset name="tileset" tilewidth="1280" tileheight="720" tilecount="54" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="4">
   <image width="128" height="128" source="../atlasres/cellblack.png"/>
@@ -149,9 +149,6 @@ encoding = "UTF-8" ?  >
  </tile>
  <tile id="52">
   <image width="57" height="38" source="../atlasres/trash_stones_3.png"/>
- </tile>
- <tile id="53">
-  <image source="../atlasres/gradient.png"/>
  </tile>
  <tile id="54">
   <image width="128" height="128" source="../atlasres/grad.png"/>

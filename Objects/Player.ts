@@ -135,7 +135,8 @@ export class Player extends ActiveCellObject {
             for (let x of res) {
                 if (x.tileColRow[0] == cx && x.tileColRow[1] == cy) {
 
-
+                    //x.gfx.scale.x = 0.5;
+                    //x.gfx.scale.y = 0.5;
                     TweenMax.to(x, 0.15, {delay: delay, y: x.y + 12, yoyo: true, repeat: 1});
                     TweenMax.to(x.gfx.scale, 0.15, {delay: delay, x: 0.96, y: 0.96, yoyo: true, repeat: 1});
                     let heaven = <PIXI.heaven.Sprite>x.gfx;
@@ -159,7 +160,7 @@ export class Player extends ActiveCellObject {
             }
 
             this.wait(delay).call(()=>{
-                this.shakeNearbyTiles(res, cx, cy);
+                //this.shakeNearbyTiles(res, cx, cy);
                 this.rockJumps(cx, cy);
             }).apply();
         };
@@ -216,10 +217,8 @@ export class Player extends ActiveCellObject {
                             if (_.game.inField(cx + dx, cy + dy)) {
                                 if (_.game.getCell([cx + dx, cy + dy]).isWall) continue;
                                 _.killTweensOf(j);
-                                j.gfx.skew.x = 0;
-                                j.gfx.skew.y = 0;
                                 TweenMax.to(j, 0.15, {
-                                    y: j.y + 5 , yoyo: true, repeat: 1})
+                                    y: j.y + 2 , yoyo: true, repeat: 1})
                             }
                     }
                 }
