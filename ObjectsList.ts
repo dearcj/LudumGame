@@ -9,6 +9,7 @@ import {DarkParticleSystem} from "./Objects/DarkParticleSystem";
 import {DeathPoint} from "./Objects/DeathPoint";
 import {Exit} from "./Objects/Exit";
 import {FogParticleSystem} from "./Objects/FogParticleSystem";
+import {JumpRock} from "./Objects/JumpRock";
 import {Lighting2} from "./Objects/Lighting2";
 import {Monster} from "./Objects/Monster";
 import {ParticleSystem} from "./Objects/ParticleSystem";
@@ -45,6 +46,7 @@ export let ObjectNames = {
   DeathPoint :DeathPoint,
   Exit :Exit,
   FogParticleSystem :FogParticleSystem,
+  JumpRock :JumpRock,
   Lighting2 :Lighting2,
   Monster :Monster,
   ParticleSystem :ParticleSystem,

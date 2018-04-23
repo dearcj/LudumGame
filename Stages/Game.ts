@@ -18,7 +18,11 @@ import {Light} from "../Neu/BaseObjects/Light";
 import {TextBox} from "../Neu/BaseObjects/TextBox";
 import {DeathPoint} from "../Objects/DeathPoint";
 import {TowerDeath} from "../Objects/TowerDeath";
-const START_LEVEL = 1;
+
+
+let url = new URL(window.location.href);
+let lev = url.searchParams.get("lev");
+const START_LEVEL = lev ? lev : 1;
 
 export type MapCell = {
     x: number,

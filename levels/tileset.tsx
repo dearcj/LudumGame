@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="tileset" tilewidth="1280" tileheight="720" tilecount="58" columns="0">
+<tileset name="tileset" tilewidth="1280" tileheight="720" tilecount="55" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
- <tile id="0">
-  <image source="../atlasres/Random.png"/>
- </tile>
- <tile id="1">
-  <image source="../atlasres/RTS_Crate_0.png"/>
- </tile>
- <tile id="2">
-  <image width="980" height="584" source="../atlasres/img_34605.png"/>
- </tile>
  <tile id="4">
   <image width="128" height="128" source="../atlasres/cellblack.png"/>
  </tile>

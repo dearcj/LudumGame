@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", "./ActiveCellObject", "./Tower"], function (require, exports, main_1, Math_1, Application_1, ActiveCellObject_1, Tower_1) {
+define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", "./ActiveCellObject", "./Tower", "./JumpRock"], function (require, exports, main_1, Math_1, Application_1, ActiveCellObject_1, Tower_1, JumpRock_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Player = /** @class */ (function (_super) {
@@ -97,7 +97,18 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
             main_1._.game.fail = true;
             main_1._.game.over();
         };
+        Player.prototype.rockJumps = function (cx, cy) {
+            var rocks = main_1._.sm.findByType(JumpRock_1.JumpRock);
+            var pos = main_1._.game.getCellPoint(cx, cy);
+            for (var _i = 0, rocks_1 = rocks; _i < rocks_1.length; _i++) {
+                var x = rocks_1[_i];
+                var dd = Math_1.m.sqdist(pos, x.pos);
+                var d = Math.sqrt(dd);
+                x.SmallJump(d / 300);
+            }
+        };
         Player.prototype.moveTo = function (dest) {
+            var _this = this;
             var oldX = this.cell.x;
             var oldY = this.cell.y;
             var dx = -Math_1.m.sign(oldX - dest.x);
@@ -130,6 +141,10 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
                         });
                     }
                 }
+                _this.wait(delay).call(function () {
+                    _this.shakeNearbyTiles(res, cx, cy);
+                    _this.rockJumps(cx, cy);
+                }).apply();
             };
             var cx = oldX;
             var cy = oldY;
@@ -166,6 +181,19 @@ define(["require", "exports", "../main", "../Neu/Math", "../Neu/Application", ".
                 animateTilesUnder(p[0], p[1], del * 0.75);
             }
             return 0.7;
+        };
+        Player.prototype.shakeNearbyTiles = function (res, cx, cy) {
+            for (var dx = -3; dx <= 3; dx++) {
+                for (var dy = -3; dy <= 3; dy++) {
+                    for (var _i = 0, res_2 = res; _i < res_2.length; _i++) {
+                        var j = res_2[_i];
+                        if (j.tileColRow[0] == cx + dx &&
+                            j.tileColRow[1] == cy + dy) {
+                            Application_1.TweenMax.to(j, 0.05, { x: j.x + dx, y: j.y + 2, yoyo: true, repeat: 1 });
+                        }
+                    }
+                }
+            }
         };
         return Player;
     }(ActiveCellObject_1.ActiveCellObject));

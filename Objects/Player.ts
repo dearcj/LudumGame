@@ -5,6 +5,8 @@ import {Power1, TimelineMax, TweenMax} from "../Neu/Application";
 import {ActiveCellObject} from "./ActiveCellObject";
 import {TOWER_EASE} from "./Tower";
 import {Light} from "../Neu/BaseObjects/Light";
+import {JumpRock} from "./JumpRock";
+import {O} from "../Neu/BaseObjects/O";
 
 export class Player extends ActiveCellObject {
     private light: Light;
@@ -108,6 +110,17 @@ export class Player extends ActiveCellObject {
         _.game.over();
     }
 
+    rockJumps(cx, cy: number) {
+        let rocks = _.sm.findByType(JumpRock);
+        let pos = _.game.getCellPoint(cx, cy);
+        for (let x of rocks) {
+            let dd = m.sqdist(pos, x.pos);
+            let d = Math.sqrt(dd);
+
+            x.SmallJump(d / 300);
+        }
+    }
+
     moveTo(dest: MapCell) {
         let oldX = this.cell.x;
         let oldY = this.cell.y;
@@ -121,6 +134,8 @@ export class Player extends ActiveCellObject {
         let animateTilesUnder = (cx, cy, delay: number) => {
             for (let x of res) {
                 if (x.tileColRow[0] == cx && x.tileColRow[1] == cy) {
+
+
                     TweenMax.to(x, 0.15, {delay: delay, y: x.y + 12, yoyo: true, repeat: 1});
                     TweenMax.to(x.gfx.scale, 0.15, {delay: delay, x: 0.96, y: 0.96, yoyo: true, repeat: 1});
                     let heaven = <PIXI.heaven.Sprite>x.gfx;
@@ -142,6 +157,11 @@ export class Player extends ActiveCellObject {
                     });
                 }
             }
+
+            this.wait(delay).call(()=>{
+                this.shakeNearbyTiles(res, cx, cy);
+                this.rockJumps(cx, cy);
+            }).apply();
         };
 
         let cx = oldX;
@@ -184,5 +204,19 @@ export class Player extends ActiveCellObject {
 
         return 0.7;
 
+    }
+
+    private shakeNearbyTiles(res: O[],cx : number, cy: number) {
+        for (let dx = -3; dx <= 3; dx++) {
+            for (let dy = -3; dy <= 3; dy++) {
+
+                for (let j of res) {
+                    if (j.tileColRow[0] == cx + dx &&
+                        j.tileColRow[1] == cy + dy){
+                        TweenMax.to(j, 0.05, {x: j.x + dx, y: j.y + 2, yoyo: true, repeat: 1})
+                    }
+                }
+            }
+        }
     }
 }
