@@ -57,7 +57,7 @@ const GLOBAL_ASSETS = [
     ///////////////////////////////////////////
     'fonts/Berkshire-export.xml',
     'fonts/NanumGothicCanvas-export.xml',
-
+    'res/Json/Blood.atlas',
 
     ///////////////////////////////////////////
     //  Shaders
@@ -238,7 +238,7 @@ export class Main extends Application {
         let onAssetsLoaded = () => {
             this.drawPreloaderProgress(100);
             this.loadingCounter++;
-            if (this.loadingCounter == 2) this.loadComplete()
+            if (this.loadingCounter == 10) this.loadComplete()
         };
 
         this.rm = new ResourceManager();
@@ -248,14 +248,16 @@ export class Main extends Application {
             this.drawPreloaderProgress(loader.progress);
             this.assetsLoaded++;
         }, onAssetsLoaded);
+//
 
-
-        this.rm.requestSpine("Teleport", (data)=>{});
-        this.rm.requestSpine("Slime", (data)=>{});
-        this.rm.requestSpine("Spider_final", (data)=>{});
-        this.rm.requestSpine("Teleport", (data)=>{});
-        this.rm.requestSpine("Blood", (data)=>{});
-        this.rm.requestSpine("Dirt", (data)=>{});
+        this.rm.requestSpine("Teleport", (data)=>{onAssetsLoaded()});
+        this.rm.requestSpine("Slime", (data)=>{onAssetsLoaded()});
+        this.rm.requestSpine("Spider_Red", (data)=>{onAssetsLoaded()});
+        this.rm.requestSpine("Spider_final", (data)=>{onAssetsLoaded()});
+        this.rm.requestSpine("Teleport", (data)=>{onAssetsLoaded()});
+        this.rm.requestSpine("Blood", (data)=>{onAssetsLoaded()});
+        this.rm.requestSpine("Dirt", (data)=>{onAssetsLoaded()});
+        this.rm.requestSpine("Horse", (data)=>{onAssetsLoaded()});
 
         this.sound = new Sound();
         this.sound.load(GLOBAL_MUSIC_ASSETS, GLOBAL_SOUND_ASSETS, onAssetsLoaded);

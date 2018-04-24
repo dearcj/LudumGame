@@ -16,6 +16,7 @@ export class AnimationManager {
     //private lastSkill: Function;
     private useSkillFinish: Function;
     inSkillAnimation: boolean = false;
+    private doRemove: boolean = false;
 
     constructor() {
         let arr: Array<AnimType> = [];
@@ -89,6 +90,7 @@ export class AnimationManager {
     }
 
     do(f: Function, durationSecs: number = 0, branch: string = "default"): Function {
+        if (this.doRemove) return;
         if (!this.branches[branch]) this.addBranch(branch);
         this.branches[branch].animations.push({f: f, dur: durationSecs});
         if (!this.branches[branch].runningFunc)
@@ -121,5 +123,9 @@ export class AnimationManager {
         });
         if (!this.branches[branch].runningFunc)
             this.updateAnimations();
+    }
+
+    remove() {
+        this.doRemove = true;
     }
 }

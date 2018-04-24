@@ -31,7 +31,7 @@ export type MapCell = {
 
 const cellsize = 128;
 
-const LevOrder = ["level2", "level3", "level4", "level4"];
+const LevOrder = ["level2", "level3", "level4", "level5"];
 
 export class Game extends Stage {
     moves: number = 0;
@@ -41,7 +41,7 @@ export class Game extends Stage {
     public player: Player;
     public win: boolean;
     public fail: boolean;
-    public anim: AnimationManager = new AnimationManager();
+    public anim: AnimationManager;
     private aoiLR: Vec2;
     private aoiWH: Vec2;
     private level: number = START_LEVEL;
@@ -57,7 +57,7 @@ export class Game extends Stage {
     }
 
     next() {
-        if (this.level < 3) {
+        if (this.level < 4) {//asdasd
             this.level++;
             _.sm.openStage(_.game);
         } else {
@@ -126,7 +126,16 @@ export class Game extends Stage {
         return true;
     }
 
+    onHide(s: Stage) {
+        if (this.pointsToMove) {
+            this.pointsToMove = _.sm.removeList(this.pointsToMove);
+        }
+        this.anim.remove();
+        super.onHide(s);
+    }
+
     onShow() {
+        this.anim = new AnimationManager();
         //let black = new BlackTransition()
         if (this.pointsToMove) {
             this.pointsToMove = _.sm.removeList(this.pointsToMove);
