@@ -1,4 +1,4 @@
-# LudumGame
+# Mare Underworld
 Game I made for Ludum Dare competition, rated as #72/4k overall
 Typescript + https://github.com/dearcj/Neu
 
